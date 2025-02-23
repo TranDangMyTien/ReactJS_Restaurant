@@ -4,21 +4,34 @@ import foodYummy from "../../assets/Epsilon.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { VscChromeClose } from "react-icons/vsc";
 
-
 export default function Navbar() {
   const [navbarState, setNavbarState] = useState(false);
 
-
   useEffect(() => {
     const handleOutsideClick = (e) => {
-      if (!e.target.closest(".responsive-nav") && !e.target.closest(".toggle")) {
+      // Chỉ đóng menu khi click bên ngoài và menu đang mở
+      if (
+        navbarState && 
+        !e.target.closest(".responsive-nav") && 
+        !e.target.closest(".toggle")
+      ) {
         setNavbarState(false);
       }
     };
-    document.addEventListener("click", handleOutsideClick);
-    return () => document.removeEventListener("click", handleOutsideClick);
-  }, []);
 
+    // Chỉ thêm event listener khi menu đang mở
+    if (navbarState) {
+      document.addEventListener("mousedown", handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [navbarState]); // Thêm navbarState vào dependencies
+
+  const toggleMenu = () => {
+    setNavbarState(!navbarState);
+  };
 
   return (
     <>
@@ -27,9 +40,9 @@ export default function Navbar() {
           <img src={foodYummy} alt="Icon" />
           <div className="toggle">
             {navbarState ? (
-              <VscChromeClose onClick={() => setNavbarState(false)} />
+              <VscChromeClose onClick={toggleMenu} />
             ) : (
-              <GiHamburgerMenu onClick={() => setNavbarState(true)} />
+              <GiHamburgerMenu onClick={toggleMenu} />
             )}
           </div>
         </div>
@@ -44,19 +57,21 @@ export default function Navbar() {
       </Nav>
 
       <ResponsiveNav state={navbarState} className="responsive-nav">
+        <div className="close-button" onClick={toggleMenu}>
+          <VscChromeClose />
+        </div>
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="#">Menu</a></li>
-          <li><a href="#p">Contact</a></li>
-          <li><a href="#products">Products</a></li>
-          <li><a href="#newsletter">Newsletter</a></li>
-          <li><button className="reserve-button">Reserve</button></li>
+          <li><a href="/" onClick={toggleMenu}>Home</a></li>
+          <li><a href="#" onClick={toggleMenu}>Menu</a></li>
+          <li><a href="#p" onClick={toggleMenu}>Contact</a></li>
+          <li><a href="#products" onClick={toggleMenu}>Products</a></li>
+          <li><a href="#newsletter" onClick={toggleMenu}>Newsletter</a></li>
+          <li><button className="reserve-button" onClick={toggleMenu}>Reserve</button></li>
         </ul>
       </ResponsiveNav>
     </>
   );
 }
-
 
 const Nav = styled.nav`
   background-color: black;
@@ -78,6 +93,9 @@ const Nav = styled.nav`
       cursor: pointer;
       font-size: 1.5rem;
       color: white;
+      .hidden {
+        display: none;
+      }
     }
   }
 
@@ -117,7 +135,7 @@ const Nav = styled.nav`
 
     .reserve-button {
       background-color: #fc4958;
-      color: black;
+      color: white;
       font-weight: bold;
       font-size: 1.2rem;
       padding: 0.8rem 1.5rem;
@@ -125,6 +143,7 @@ const Nav = styled.nav`
       border-radius: 10px;
       cursor: pointer;
       transition: 0.3s ease-in-out;
+      letter-spacing: 0.1rem;
      
       &:hover {
         background-color: #f9c74f;
@@ -166,7 +185,27 @@ const ResponsiveNav = styled.div`
   flex-direction: column;
   align-items: center;
   padding-top: 3rem;
+  box-shadow: ${({ state }) => (state ? "-4px 0 10px rgba(0,0,0,0.1)" : "none")};
+  .close-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #fc4958;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
 
+    &:hover {
+      background-color: rgba(252, 73, 88, 0.1);
+      transform: rotate(90deg);
+    }
+  }
 
   ul {
     list-style: none;
@@ -202,7 +241,7 @@ const ResponsiveNav = styled.div`
 
   .reserve-button {
     background-color: #fc4958;
-    color: black;
+    color: white;
     font-weight: bold;
     font-size: 1.2rem;
     padding: 0.8rem 1.5rem;
@@ -211,6 +250,7 @@ const ResponsiveNav = styled.div`
     cursor: pointer;
     margin-top: 2rem;
     transition: 0.3s ease-in-out;
+    letter-spacing: 0.1rem;
 
 
     &:hover {
