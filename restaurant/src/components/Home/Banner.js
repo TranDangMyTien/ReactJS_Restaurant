@@ -57,7 +57,7 @@ const Banner = () => {
       letterSpacing: "0.04em",
       textTransform: "capitalize",
       lineHeight: "100px",
-      fontSize: "65px",
+      fontSize: "55px",
     },
     paragraph: {
       margin: "2rem 0",
@@ -66,8 +66,7 @@ const Banner = () => {
     },
     buttonWrapper: {
       display: "flex",
-      justifyContent: "center", // Căn giữa theo chiều ngang
-      alignItems: "center", // Căn giữa theo chiều dọc
+      alignItems: "center",
       width: "100%",
       marginTop: "1.5rem", // Điều chỉnh khoảng cách từ text phía trên
     },
@@ -140,7 +139,7 @@ const Banner = () => {
       color: "var(--color-golden)",
       fontWeight: 700,
       letterSpacing: "0.04em",
-      fontSize: "48px",
+      fontSize: "40px",
       lineHeight: "1.3",
       marginBottom: "1.5rem",
     },
