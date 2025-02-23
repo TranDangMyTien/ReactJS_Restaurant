@@ -8,37 +8,35 @@ export default function Services() {
   return (
     <Section id="services">
       <div className="title">
-        <h1 className="yellow">What we do?</h1>
+        <h1 className="yellow">What Do We Offer?</h1>
         <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tenetur,
-          incidunt magnam labore ipsam vero minima maxime doloribus dolores ipsa
-          soluta.
+        Experience unique cuisine in Vung Tau with delicious dishes, luxurious space and dedicated service.
         </p>
       </div>
       <div className="services">
         <div className="service">
           <img src={Services2} alt="" />
           <p>
-            He Printing and Typesetting the industry. <span>Lorem Ipsum</span>{" "}
-            has been the Industry's
+            We select the <span>freshest ingredients</span> from the sea and land 
+            to craft dishes full of rich flavors.
           </p>
-          <button>Read More</button>
+          <button>Discover More</button>
         </div>
         <div className="service yellow">
           <img src={Services1} alt="" />
           <p>
-            He Printing and Typesetting the industry. <span>Lorem Ipsum</span>{" "}
-            has been the Industry's
+            A <span>warm and modern space</span>, perfect for family gatherings, 
+            business meetings, or special occasions.
           </p>
-          <button>Read More</button>
+          <button>Discover More</button>
         </div>
         <div className="service">
           <img src={Services3} alt="" />
           <p>
-            He Printing and Typesetting the industry. <span>Lorem Ipsum</span>{" "}
-            has been the Industry's
+            Our professional staff provides <span>attentive service</span>, ensuring you 
+            have the best dining experience.
           </p>
-          <button>Read More</button>
+          <button>Discover More</button>
         </div>
       </div>
     </Section>
