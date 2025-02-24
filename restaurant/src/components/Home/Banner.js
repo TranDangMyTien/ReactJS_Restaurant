@@ -23,7 +23,7 @@ const Banner = () => {
   // 🎨 Style cho màn hình lớn (PC, Tablet lớn)
   const stylesDesktop = {
     header: {
-      backgroundColor: "black",
+      backgroundColor: "white",
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
@@ -35,21 +35,8 @@ const Banner = () => {
       display: "flex",
       flexDirection: "column",
       alignItems: "flex-start",
-      color: "white",
+      color: "",
       paddingLeft: "2rem",
-    },
-    subtitle: {
-      fontSize: "20px",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      gap: "8px",
-      marginBottom: "1.5rem",
-    },
-    spoonImg: {
-      width: "auto",
-      height: "auto",
-      maxWidth: "100%",
     },
     headerH1: {
       color: "var(--color-golden)",
@@ -71,7 +58,7 @@ const Banner = () => {
       marginTop: "1.5rem", // Điều chỉnh khoảng cách từ text phía trên
     },
     button: {
-      backgroundColor: "#fff",
+      backgroundColor: "#FFD700",
       color: "#000",
       padding: "0.8rem 2.5rem",
       border: "none",
@@ -86,9 +73,9 @@ const Banner = () => {
       transition: "all 0.3s ease-in-out",
     },
     buttonHover: {
-      backgroundColor: "#FFD700",
+      backgroundColor: "#FFA500",
       color: "#000",
-      boxShadow: "0 10px 25px rgba(255, 215, 0, 0.5)",
+      boxShadow: "0 10px 25px rgba(235, 208, 58, 0.5)",
       transform: "translateY(-3px)",
     },
     wrapperImg: {
@@ -105,7 +92,7 @@ const Banner = () => {
   // 📱 Style cho màn hình nhỏ (Mobile, Tablet nhỏ)
   const stylesMobile = {
     header: {
-      backgroundColor: "black",
+      backgroundColor: "white",
       padding: "2rem 1.5rem",
       minHeight: "auto",
       position: "relative",
@@ -115,25 +102,12 @@ const Banner = () => {
       alignItems: "center",
     },
     wrapperInfo: {
-      color: "white",
+      color: "black",
       maxWidth: "600px",
       textAlign: "center",
       margin: "0 auto",
       position: "relative",
       zIndex: 2,
-    },
-    subtitle: {
-      fontFamily: "var(--font-cormorant)",
-      fontSize: "20px",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      gap: "8px",
-      marginBottom: "1.5rem",
-    },
-    spoonImg: {
-      width: "40px",
-      height: "auto",
     },
     headerH1: {
       color: "var(--color-golden)",
@@ -200,11 +174,6 @@ const Banner = () => {
   return (
     <div style={styles.header} id="home">
       <div style={styles.wrapperInfo}>
-        <div style={styles.subtitle}>
-          <span>Embark on a Culinary Journey</span>
-          <img src={spoon} alt="spoon_image" style={styles.spoonImg} />
-        </div>
-
         <h1 style={styles.headerH1}>The Art of Exquisite Dining</h1>
 
         <p style={styles.paragraph}>

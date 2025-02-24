@@ -26,37 +26,38 @@ const ScrollToTop = () => {
     return () => window.removeEventListener("scroll", checkScrollPosition);
   }, []);
 
-  // Định nghĩa CSS dưới dạng object
+  // Styles
   const styles = {
     container: {
       position: "fixed",
       bottom: "32px",
       right: "32px",
       opacity: isVisible ? 1 : 0,
-      transition: "opacity 0.3s ease-in-out",
+      transition: "opacity 0.3s ease-in-out, transform 0.3s ease-in-out",
       pointerEvents: isVisible ? "auto" : "none",
     },
     button: {
-      backgroundColor: "white",
-      padding: "10px",
+      width: "60px",
+      height: "60px",
+      background: "linear-gradient(135deg, #FFD700, #FFA500)",
       borderRadius: "50%",
-      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
       border: "none",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      boxShadow: "0 8px 15px rgba(255, 165, 0, 0.3)",
       cursor: "pointer",
-      transition: "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
+      transition: "all 0.3s ease-in-out",
     },
     buttonHover: {
-      transform: "translateY(-4px)",
-      boxShadow: "0 6px 12px rgba(0, 0, 0, 0.15)",
+      transform: "translateY(-5px)",
+      boxShadow: "0 12px 20px rgba(255, 165, 0, 0.5)",
     },
     icon: {
-      width: "40px",
-      height: "40px",
-      color: "#666",
-      transition: "color 0.2s ease-in-out",
-    },
-    iconHover: {
-      color: "#333",
+      width: "32px",
+      height: "32px",
+      color: "#fff",
+      transition: "color 0.3s ease-in-out",
     },
   };
 
@@ -74,11 +75,7 @@ const ScrollToTop = () => {
           e.target.style.boxShadow = "";
         }}
       >
-        <ArrowUpCircle
-          style={styles.icon}
-          onMouseEnter={(e) => (e.target.style.color = styles.iconHover.color)}
-          onMouseLeave={(e) => (e.target.style.color = styles.icon.color)}
-        />
+        <ArrowUpCircle style={styles.icon} />
       </button>
     </div>
   );
