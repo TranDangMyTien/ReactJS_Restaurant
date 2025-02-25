@@ -11,8 +11,8 @@ export default function Navbar() {
     const handleOutsideClick = (e) => {
       // Chỉ đóng menu khi click bên ngoài và menu đang mở
       if (
-        navbarState && 
-        !e.target.closest(".responsive-nav") && 
+        navbarState &&
+        !e.target.closest(".responsive-nav") &&
         !e.target.closest(".toggle")
       ) {
         setNavbarState(false);
@@ -47,12 +47,26 @@ export default function Navbar() {
           </div>
         </div>
         <ul className="links">
-          <li><a href="/" className="active">Home</a></li>
-          <li><a href="#">Menu</a></li>
-          <li><a href="#p">Contact</a></li>
-          <li><a href="#products">Products</a></li>
-          <li><a href="#newsletter">Newsletter</a></li>
-          <li><button className="reserve-button">Reserve</button></li>
+          <li>
+            <a href="/" className="active">
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="/menu">Menu</a>
+          </li>
+          <li>
+            <a href="#p">Contact</a>
+          </li>
+          <li>
+            <a href="#products">Products</a>
+          </li>
+          <li>
+            <a href="#newsletter">Newsletter</a>
+          </li>
+          <li>
+            <button className="reserve-button">Reserve</button>
+          </li>
         </ul>
       </Nav>
 
@@ -61,12 +75,36 @@ export default function Navbar() {
           <VscChromeClose />
         </div>
         <ul>
-          <li><a href="/" onClick={toggleMenu}>Home</a></li>
-          <li><a href="#" onClick={toggleMenu}>Menu</a></li>
-          <li><a href="#p" onClick={toggleMenu}>Contact</a></li>
-          <li><a href="#products" onClick={toggleMenu}>Products</a></li>
-          <li><a href="#newsletter" onClick={toggleMenu}>Newsletter</a></li>
-          <li><button className="reserve-button" onClick={toggleMenu}>Reserve</button></li>
+          <li>
+            <a href="/" onClick={toggleMenu}>
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="/menu" onClick={toggleMenu}>
+              Menu
+            </a>
+          </li>
+          <li>
+            <a href="#p" onClick={toggleMenu}>
+              Contact
+            </a>
+          </li>
+          <li>
+            <a href="#products" onClick={toggleMenu}>
+              Products
+            </a>
+          </li>
+          <li>
+            <a href="#newsletter" onClick={toggleMenu}>
+              Newsletter
+            </a>
+          </li>
+          <li>
+            <button className="reserve-button" onClick={toggleMenu}>
+              Reserve
+            </button>
+          </li>
         </ul>
       </ResponsiveNav>
     </>
@@ -79,7 +117,6 @@ const Nav = styled.nav`
   justify-content: space-between;
   align-items: center;
   padding: 0 4vw;
-
 
   .brand {
     display: flex;
@@ -99,17 +136,16 @@ const Nav = styled.nav`
     }
   }
 
-
   .links {
     display: flex;
     list-style: none;
     gap: 2rem;
-   
+
     li {
       display: flex;
       align-items: center;
       justify-content: center;
-     
+
       a {
         color: #fc4958;
         font-weight: 600;
@@ -122,7 +158,7 @@ const Nav = styled.nav`
         align-items: center;
         justify-content: center;
         height: 100%;
-       
+
         &:hover {
           color: #f9c74f;
         }
@@ -131,7 +167,6 @@ const Nav = styled.nav`
         color: #f9c74f;
       }
     }
-
 
     .reserve-button {
       background-color: #fc4958;
@@ -144,18 +179,17 @@ const Nav = styled.nav`
       cursor: pointer;
       transition: 0.3s ease-in-out;
       letter-spacing: 0.1rem;
-     
+
       &:hover {
         background-color: #f9c74f;
       }
     }
   }
-     @media screen and (max-width: 1300px) {
-     .links {
-   
-       gap: 10px;}
-     }
-
+  @media screen and (max-width: 1300px) {
+    .links {
+      gap: 10px;
+    }
+  }
 
   @media screen and (max-width: 1080px) {
     .brand {
@@ -171,7 +205,6 @@ const Nav = styled.nav`
   }
 `;
 
-
 const ResponsiveNav = styled.div`
   position: fixed;
   right: ${({ state }) => (state ? "0" : "-100vw")};
@@ -185,7 +218,8 @@ const ResponsiveNav = styled.div`
   flex-direction: column;
   align-items: center;
   padding-top: 3rem;
-  box-shadow: ${({ state }) => (state ? "-4px 0 10px rgba(0,0,0,0.1)" : "none")};
+  box-shadow: ${({ state }) =>
+    state ? "-4px 0 10px rgba(0,0,0,0.1)" : "none"};
   .close-button {
     position: absolute;
     top: 1rem;
@@ -210,14 +244,13 @@ const ResponsiveNav = styled.div`
   ul {
     list-style: none;
     width: 100%;
-   
+
     li {
       display: flex;
       align-items: center;
       justify-content: center;
       height: 50px;
       margin-bottom: 1rem;
-
 
       a {
         text-decoration: none;
@@ -230,14 +263,13 @@ const ResponsiveNav = styled.div`
         justify-content: center;
         width: 100%;
         height: 100%;
-       
+
         &:hover {
           color: #fc4958;
         }
       }
     }
   }
-
 
   .reserve-button {
     background-color: #fc4958;
@@ -252,12 +284,8 @@ const ResponsiveNav = styled.div`
     transition: 0.3s ease-in-out;
     letter-spacing: 0.1rem;
 
-
     &:hover {
       background-color: #f9c74f;
     }
   }
 `;
-
-
-
