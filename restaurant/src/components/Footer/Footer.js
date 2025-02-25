@@ -5,6 +5,8 @@ import { AiFillInstagram } from "react-icons/ai";
 import { BsTwitter } from "react-icons/bs";
 import { FaFacebookF } from "react-icons/fa";
 import { GrLinkedinOption } from "react-icons/gr";
+import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
+
 export default function Footer() {
   return (
     <div className="footer">
@@ -64,6 +66,14 @@ const Section = styled.footer`
   grid-template-columns: repeat(3, 1fr);
   gap: 10vw;
   padding: 4vw;
+  
+  .about.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+  }
 
   .brand.container {
     display: flex;

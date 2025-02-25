@@ -6,8 +6,17 @@ import { VscChromeClose } from "react-icons/vsc";
 
 export default function Navbar() {
   const [navbarState, setNavbarState] = useState(false);
+  const [activeLink, setActiveLink] = useState("home"); // State để theo dõi link đang active
 
   useEffect(() => {
+    // Lấy đường dẫn hiện tại và set active link tương ứng khi component mount
+    const path = window.location.pathname;
+    if (path === "/") setActiveLink("home");
+    else if (path === "/menu") setActiveLink("menu");
+    else if (path.includes("contact")) setActiveLink("contact");
+    else if (path.includes("products")) setActiveLink("products");
+    else if (path.includes("newsletter")) setActiveLink("newsletter");
+
     const handleOutsideClick = (e) => {
       // Chỉ đóng menu khi click bên ngoài và menu đang mở
       if (
@@ -33,6 +42,14 @@ export default function Navbar() {
     setNavbarState(!navbarState);
   };
 
+  // Hàm xử lý khi click vào link
+  const handleLinkClick = (linkName) => {
+    setActiveLink(linkName);
+    if (navbarState) {
+      setNavbarState(false); // Đóng menu responsive nếu đang mở
+    }
+  };
+
   return (
     <>
       <Nav>
@@ -48,21 +65,49 @@ export default function Navbar() {
         </div>
         <ul className="links">
           <li>
-            <a href="/" className="active">
+            <a 
+              href="/" 
+              className={activeLink === "home" ? "active" : ""}
+              onClick={() => handleLinkClick("home")}
+            >
               Home
             </a>
           </li>
           <li>
-            <a href="/menu">Menu</a>
+            <a 
+              href="/menu" 
+              className={activeLink === "menu" ? "active" : ""}
+              onClick={() => handleLinkClick("menu")}
+            >
+              Menu
+            </a>
           </li>
           <li>
-            <a href="#p">Contact</a>
+            <a 
+              href="#p" 
+              className={activeLink === "contact" ? "active" : ""}
+              onClick={() => handleLinkClick("contact")}
+            >
+              Contact
+            </a>
           </li>
           <li>
-            <a href="#products">Products</a>
+            <a 
+              href="#products" 
+              className={activeLink === "products" ? "active" : ""}
+              onClick={() => handleLinkClick("products")}
+            >
+              Products
+            </a>
           </li>
           <li>
-            <a href="#newsletter">Newsletter</a>
+            <a 
+              href="#newsletter" 
+              className={activeLink === "newsletter" ? "active" : ""}
+              onClick={() => handleLinkClick("newsletter")}
+            >
+              Newsletter
+            </a>
           </li>
           <li>
             <button className="reserve-button">Reserve</button>
@@ -76,34 +121,52 @@ export default function Navbar() {
         </div>
         <ul>
           <li>
-            <a href="/" onClick={toggleMenu}>
+            <a 
+              href="/" 
+              className={activeLink === "home" ? "active" : ""}
+              onClick={() => handleLinkClick("home")}
+            >
               Home
             </a>
           </li>
           <li>
-            <a href="/menu" onClick={toggleMenu}>
+            <a 
+              href="/menu" 
+              className={activeLink === "menu" ? "active" : ""}
+              onClick={() => handleLinkClick("menu")}
+            >
               Menu
             </a>
           </li>
           <li>
-            <a href="#p" onClick={toggleMenu}>
+            <a 
+              href="#p" 
+              className={activeLink === "contact" ? "active" : ""}
+              onClick={() => handleLinkClick("contact")}
+            >
               Contact
             </a>
           </li>
           <li>
-            <a href="#products" onClick={toggleMenu}>
+            <a 
+              href="#products" 
+              className={activeLink === "products" ? "active" : ""}
+              onClick={() => handleLinkClick("products")}
+            >
               Products
             </a>
           </li>
           <li>
-            <a href="#newsletter" onClick={toggleMenu}>
+            <a 
+              href="#newsletter" 
+              className={activeLink === "newsletter" ? "active" : ""}
+              onClick={() => handleLinkClick("newsletter")}
+            >
               Newsletter
             </a>
           </li>
           <li>
-            <button className="reserve-button" onClick={toggleMenu}>
-              Reserve
-            </button>
+            <button className="reserve-button">Reserve</button>
           </li>
         </ul>
       </ResponsiveNav>
@@ -266,6 +329,11 @@ const ResponsiveNav = styled.div`
 
         &:hover {
           color: #fc4958;
+        }
+        
+        &.active {
+          color: #fc4958; /* Màu active cho menu responsive */
+          font-weight: bold;
         }
       }
     }
