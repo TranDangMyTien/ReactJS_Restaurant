@@ -69,7 +69,7 @@ const Section = styled.section`
 
   .content {
     position: absolute;
-    top: 30%;
+    top: 20%;
     left: 10%;
     color: white;
     display: flex;
@@ -111,7 +111,7 @@ const Section = styled.section`
 
   @media screen and (min-width: 260px) and (max-width: 1080px) {
     .content {
-      top: 25%;
+      top: 15%;
       left: 15%;
       h1 {
         font-size: 1.5rem;
