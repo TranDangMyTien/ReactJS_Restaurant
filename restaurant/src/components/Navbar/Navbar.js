@@ -84,7 +84,7 @@ export default function Navbar() {
           </li>
           <li>
             <a 
-              href="#p" 
+              href="/contact" 
               className={activeLink === "contact" ? "active" : ""}
               onClick={() => handleLinkClick("contact")}
             >
@@ -140,7 +140,7 @@ export default function Navbar() {
           </li>
           <li>
             <a 
-              href="#p" 
+              href="/contact" 
               className={activeLink === "contact" ? "active" : ""}
               onClick={() => handleLinkClick("contact")}
             >

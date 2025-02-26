@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
 import ScrollToTop from "./components/Home/ScrollToTop";
 import MenuPage from "./components/Menu/MenuPage";
+import Contact from "./components/Contact/Contact";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/menu" element={<MenuPage />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
         <ScrollToTop />
         <Footer />

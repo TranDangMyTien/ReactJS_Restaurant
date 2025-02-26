@@ -43,7 +43,7 @@ export default function Footer() {
           <div className="title">
             <h3>Contact Us</h3>
           </div>
-          <p>+84 999999999</p>
+          <p>(+84) 123 456 789</p>
           <p>epsilon.restaurant@gmail.com</p>
           <p>@EpsilonLabs</p>
           <p>5 Street 87A, Thạnh Mỹ Lợi Ward, District 2, Ho Chi Minh City, Vietnam</p>
