@@ -124,7 +124,7 @@ const Banner = () => {
       opacity: 0.9,
     },
     button: {
-      backgroundColor: "#fff",
+      backgroundColor: "#FFD700",
       color: "#000",
       padding: "0.8rem 2.5rem",
       border: "none",

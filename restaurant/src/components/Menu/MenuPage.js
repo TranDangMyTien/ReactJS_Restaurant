@@ -3,22 +3,32 @@ import { foodData } from "./foodData";
 import FoodItem from "./FoodItem";
 import "./MenuStyle.css"; // Import CSS riêng
 
+// Hàm loại bỏ dấu tiếng Việt
+const removeVietnameseTones = (str) => {
+  return str
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/đ/g, "d")
+    .replace(/Đ/g, "D");
+};
+
 const MenuPage = () => {
-  console.log("foodData:", foodData);
-
   const [search, setSearch] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("Tất cả");
 
-  // Danh mục món ăn
-  const categories = foodData
-    ? [...new Set(foodData.map((food) => food.category))]
-    : [];
+  // Danh mục món ăn (thêm "Tất cả")
+  const categories = ["Tất cả", ...new Set(foodData.map((food) => food.category))];
 
-  // Lọc món ăn theo từ khóa
-  const filteredFoods = foodData
-    ? foodData.filter((food) =>
-        food.name.toLowerCase().includes(search.toLowerCase())
-      )
-    : [];
+  // Lọc món ăn theo từ khóa hoặc danh mục
+  const filteredFoods = foodData.filter((food) => {
+    const foodNameNoAccent = removeVietnameseTones(food.name).toLowerCase();
+    const searchNoAccent = removeVietnameseTones(search).toLowerCase();
+
+    const matchesSearch = foodNameNoAccent.includes(searchNoAccent);
+    const matchesCategory = selectedCategory === "Tất cả" || food.category === selectedCategory;
+
+    return matchesSearch && matchesCategory;
+  });
 
   return (
     <div className="menu-container">
@@ -28,7 +38,10 @@ const MenuPage = () => {
         placeholder="Tìm kiếm món ăn..."
         className="search-bar"
         value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={(e) => {
+          setSearch(e.target.value);
+          setSelectedCategory("Tất cả"); // Reset danh mục khi tìm kiếm
+        }}
       />
 
       {/* Mục lục danh mục */}
@@ -36,8 +49,11 @@ const MenuPage = () => {
         {categories.map((category) => (
           <button
             key={category}
-            className="category-btn"
-            onClick={() => setSearch(category)}
+            className={`category-btn ${selectedCategory === category ? "active" : ""}`}
+            onClick={() => {
+              setSelectedCategory(category);
+              setSearch(""); // Xóa tìm kiếm khi chọn danh mục
+            }}
           >
             {category}
           </button>
