@@ -1,0 +1,136 @@
+.floating-contact-icons {
+  position: fixed;
+  right: 15px;
+  bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 999;
+  transform: translateX(100px);
+  transition: transform 0.3s ease-in-out;
+}
+
+.floating-contact-icons.visible {
+  transform: translateX(0);
+}
+
+.contact-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.contact-icon:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Hiệu ứng gợn sáng khi hover */
+.contact-icon::after {
+  content: "";
+  position: absolute;
+  width: 55px;
+  height: 55px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.contact-icon:hover::after {
+  opacity: 1;
+}
+
+/* Tooltip hiển thị khi hover */
+.contact-icon::before {
+  content: attr(title);
+  position: absolute;
+  right: 55px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+}
+
+.contact-icon:hover::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Các màu sắc của từng icon */
+.phone-icon {
+  background-color: #4CAF50;
+}
+
+.zalo-icon {
+  background-color: #0068FF;
+}
+
+.messenger-icon {
+  background-color: #0084FF;
+}
+
+/* Hiệu ứng xuất hiện */
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateX(100px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05) translateX(0);
+  }
+  70% {
+    transform: scale(0.9) translateX(0);
+  }
+  100% {
+    transform: scale(1) translateX(0);
+  }
+}
+
+.floating-contact-icons.visible .contact-icon {
+  animation: bounceIn 0.5s ease forwards;
+}
+
+.floating-contact-icons.visible .contact-icon:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.floating-contact-icons.visible .contact-icon:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.floating-contact-icons.visible .contact-icon:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+/* Responsive cho thiết bị di động */
+@media (max-width: 768px) {
+  .floating-contact-icons {
+    right: 10px;
+    bottom: 70px;
+    gap: 10px;
+  }
+  
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .contact-icon::before {
+    display: none; /* Ẩn tooltip trên thiết bị di động */
+  }
+}
