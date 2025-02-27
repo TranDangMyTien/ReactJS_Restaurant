@@ -1,7 +1,7 @@
 .floating-contact-icons {
   position: fixed;
   right: 15px;
-  bottom: 80px;
+  bottom: 120px;
   display: flex;
   flex-direction: column;
   gap: 12px;
