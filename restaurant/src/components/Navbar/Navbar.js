@@ -16,9 +16,8 @@ export default function Navbar() {
     if (path === "/") setActiveLink("home");
     else if (path === "/menu") setActiveLink("menu");
     else if (path.includes("contact")) setActiveLink("contact");
-    else if (path.includes("events")) setActiveLink("events");
     else if (path.includes("reservation")) setActiveLink("reservation");
-    else if (path.includes("specialties")) setActiveLink("specialties");
+    else if (path.includes("promotion")) setActiveLink("specialties");
 
     const handleOutsideClick = (e) => {
       // Chỉ đóng menu khi click bên ngoài và menu đang mở
@@ -80,16 +79,16 @@ export default function Navbar() {
                   className={activeLink === "home" ? "active" : ""}
                   onClick={() => handleLinkClick("home")}
                 >
-                  WELCOME
+                  HOME
                 </a>
               </li>
               <li>
                 <a 
-                  href="/specialties" 
-                  className={activeLink === "specialties" ? "active" : ""}
-                  onClick={() => handleLinkClick("specialties")}
+                  href="#" 
+                  className={activeLink === "promotion" ? "active" : ""}
+                  onClick={() => handleLinkClick("promotion")}
                 >
-                  SPECIALTIES
+                PROMOTION
                 </a>
               </li>
               <li>
@@ -103,20 +102,11 @@ export default function Navbar() {
               </li>
               <li>
                 <a 
-                  href="/reservation" 
+                  href="#" 
                   className={activeLink === "reservation" ? "active" : ""}
                   onClick={() => handleLinkClick("reservation")}
                 >
                   RESERVATION
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="/events" 
-                  className={activeLink === "events" ? "active" : ""}
-                  onClick={() => handleLinkClick("events")}
-                >
-                  EVENTS
                 </a>
               </li>
               <li>
@@ -154,16 +144,16 @@ export default function Navbar() {
               className={activeLink === "home" ? "active" : ""}
               onClick={() => handleLinkClick("home")}
             >
-              WELCOME
+              HOME
             </a>
           </li>
           <li>
             <a 
-              href="/specialties" 
-              className={activeLink === "specialties" ? "active" : ""}
-              onClick={() => handleLinkClick("specialties")}
+              href="#" 
+              className={activeLink === "promotion" ? "active" : ""}
+              onClick={() => handleLinkClick("promotion")}
             >
-              SPECIALTIES
+              PROMOTION
             </a>
           </li>
           <li>
@@ -177,20 +167,11 @@ export default function Navbar() {
           </li>
           <li>
             <a 
-              href="/reservation" 
+              href="#" 
               className={activeLink === "reservation" ? "active" : ""}
               onClick={() => handleLinkClick("reservation")}
             >
               RESERVATION
-            </a>
-          </li>
-          <li>
-            <a 
-              href="/events" 
-              className={activeLink === "events" ? "active" : ""}
-              onClick={() => handleLinkClick("events")}
-            >
-              EVENTS
             </a>
           </li>
           <li>
@@ -372,7 +353,7 @@ const ResponsiveNav = styled.div`
   position: fixed;
   right: ${({ state }) => (state ? "0" : "-100vw")};
   top: 0;
-  z-index: 10;
+  z-index: 100;
   background-color: rgba(0, 0, 0, 0.95);
   height: 100vh;
   width: 70%;
@@ -407,7 +388,7 @@ const ResponsiveNav = styled.div`
         }
         
         &.active {
-          color: #fc4958;
+          color: #f9c74f;
           font-weight: bold;
         }
       }
