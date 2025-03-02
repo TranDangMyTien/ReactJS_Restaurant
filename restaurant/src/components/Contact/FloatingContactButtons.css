@@ -4,7 +4,7 @@
   bottom: 120px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   z-index: 999;
   transform: translateX(100px);
   transition: transform 0.3s ease-in-out;
@@ -15,8 +15,8 @@
 }
 
 .contact-icon {
-  width: 45px;
-  height: 45px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -36,8 +36,8 @@
 .contact-icon::after {
   content: "";
   position: absolute;
-  width: 55px;
-  height: 55px;
+  width: 50px;
+  height: 50px;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 50%;
   opacity: 0;
@@ -52,7 +52,7 @@
 .contact-icon::before {
   content: attr(title);
   position: absolute;
-  right: 55px;
+  right: 50px;
   background-color: rgba(0, 0, 0, 0.7);
   color: white;
   padding: 5px 10px;
@@ -81,6 +81,10 @@
 
 .messenger-icon {
   background-color: #0084FF;
+}
+
+.livechat-icon {
+  background-color: #FF5722;
 }
 
 /* Hiệu ứng xuất hiện */
@@ -117,17 +121,21 @@
   animation-delay: 0.2s;
 }
 
+.floating-contact-icons.visible .contact-icon:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
 /* Responsive cho thiết bị di động */
 @media (max-width: 768px) {
   .floating-contact-icons {
     right: 10px;
     bottom: 110px;
-    gap: 10px;
+    gap: 8px;
   }
   
   .contact-icon {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
   }
   
   .contact-icon::before {

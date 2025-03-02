@@ -6,7 +6,9 @@ import { VscChromeClose } from "react-icons/vsc";
 
 export default function Navbar() {
   const [navbarState, setNavbarState] = useState(false);
-  const [activeLink, setActiveLink] = useState("home"); // State để theo dõi link đang active
+  const [activeLink, setActiveLink] = useState("home");
+  const [visible, setVisible] = useState(true);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     // Lấy đường dẫn hiện tại và set active link tương ứng khi component mount
@@ -38,6 +40,18 @@ export default function Navbar() {
     };
   }, [navbarState]); // Thêm navbarState vào dependencies
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setVisible(currentScrollY < scrollY || currentScrollY < 10);
+      setScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [scrollY]);
+
   const toggleMenu = () => {
     setNavbarState(!navbarState);
   };
@@ -52,7 +66,7 @@ export default function Navbar() {
 
   return (
     <>
-      <Nav>
+      <Nav className={visible ? "visible" : "hidden"}>
         <div className="brand">
           <img src={foodYummy} alt="Icon" />
           <div className="toggle">
@@ -75,6 +89,15 @@ export default function Navbar() {
           </li>
           <li>
             <a 
+              href="" 
+              className={activeLink === "products" ? "active" : ""}
+              onClick={() => handleLinkClick("products")}
+            >
+              Promotion
+            </a>
+          </li>
+          <li>
+            <a 
               href="/menu" 
               className={activeLink === "menu" ? "active" : ""}
               onClick={() => handleLinkClick("menu")}
@@ -84,33 +107,24 @@ export default function Navbar() {
           </li>
           <li>
             <a 
+              href="" 
+              className={activeLink === "newsletter" ? "active" : ""}
+              onClick={() => handleLinkClick("newsletter")}
+            >
+              Reservation
+            </a>
+          </li>
+          <li>
+            <a 
               href="/contact" 
               className={activeLink === "contact" ? "active" : ""}
               onClick={() => handleLinkClick("contact")}
             >
-              Contact
+              Contact us
             </a>
           </li>
           <li>
-            <a 
-              href="#products" 
-              className={activeLink === "products" ? "active" : ""}
-              onClick={() => handleLinkClick("products")}
-            >
-              Products
-            </a>
-          </li>
-          <li>
-            <a 
-              href="#newsletter" 
-              className={activeLink === "newsletter" ? "active" : ""}
-              onClick={() => handleLinkClick("newsletter")}
-            >
-              Newsletter
-            </a>
-          </li>
-          <li>
-            <button className="reserve-button">Reserve</button>
+            <button className="reserve-button">Order now</button>
           </li>
         </ul>
       </Nav>
@@ -175,12 +189,29 @@ export default function Navbar() {
 }
 
 const Nav = styled.nav`
-  background-color: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: transform 0.6s ease-in-out, background-color 0.6s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   padding: 0 4vw;
-
+  z-index: 1000;
+  
+  &.hidden {
+    transform: translateY(-100%);
+    transition: transform 0.8s cubic-bezier(0.33, 1, 0.68, 1);
+  }
+  
+  &.visible {
+    transform: translateY(0);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
   .brand {
     display: flex;
     align-items: center;
@@ -210,7 +241,7 @@ const Nav = styled.nav`
       justify-content: center;
 
       a {
-        color: #fc4958;
+        color: #f9c74f;
         font-weight: 600;
         text-decoration: none;
         text-transform: uppercase;
@@ -223,11 +254,11 @@ const Nav = styled.nav`
         height: 100%;
 
         &:hover {
-          color: #f9c74f;
+          color: #fc4958;
         }
       }
       .active {
-        color: #f9c74f;
+        color: #fc4958;
       }
     }
 
@@ -276,7 +307,7 @@ const ResponsiveNav = styled.div`
   background-color: white;
   height: 100vh;
   width: 60%;
-  transition: 0.3s ease-in-out;
+  transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -296,7 +327,7 @@ const ResponsiveNav = styled.div`
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
 
     &:hover {
       background-color: rgba(252, 73, 88, 0.1);
@@ -319,7 +350,7 @@ const ResponsiveNav = styled.div`
         text-decoration: none;
         color: #f9c74f;
         font-size: 1.2rem;
-        transition: 0.1s ease-in-out;
+        transition: 0.3s ease-in-out;
         text-align: center;
         display: flex;
         align-items: center;
@@ -349,7 +380,7 @@ const ResponsiveNav = styled.div`
     border-radius: 10px;
     cursor: pointer;
     margin-top: 2rem;
-    transition: 0.3s ease-in-out;
+    transition: 0.5s ease-in-out;
     letter-spacing: 0.1rem;
 
     &:hover {

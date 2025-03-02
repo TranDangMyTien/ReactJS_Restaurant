@@ -3,170 +3,281 @@ import styled from "styled-components";
 import logo from "../../assets/Epsilon.png";
 import { AiFillInstagram } from "react-icons/ai";
 import { BsTwitter } from "react-icons/bs";
-import { FaFacebookF } from "react-icons/fa";
+import { FaFacebookF, FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 import { GrLinkedinOption } from "react-icons/gr";
-import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <div className="footer">
-      <Section>
-        <div className="brand container">
-          <img src={logo} alt="" />
-          <p>
-          Experience great food at Epsilon Restaurant, which offers a perfect blend of traditional and modern cuisine.
-          </p>
-          <ul>
-            <li>
-              <AiFillInstagram />
-            </li>
-            <li>
-              <FaFacebookF />
-            </li>
-            <li>
-              <GrLinkedinOption />
-            </li>
-            <li>
-              <BsTwitter />
-            </li>
-          </ul>
-        </div>
-        <div className="about container">
-          <div className="title">
-            <h3>About Us</h3>
-          </div>
-          <p>
-          Epsilon Restaurant is located in Vung Tau, offering a luxurious, cozy space with a rich menu from top chefs. We are committed to providing the freshest ingredients and the most professional service.
-          </p>
-        </div>
-        <div className="contact container">
-          <div className="title">
-            <h3>Contact Us</h3>
-          </div>
-          <p>(+84) 123 456 789</p>
-          <p>epsilon.restaurant@gmail.com</p>
-          <p>@EpsilonLabs</p>
-          <p>5 Street 87A, Thạnh Mỹ Lợi Ward, District 2, Ho Chi Minh City, Vietnam</p>
-        </div>
-      </Section>
-      <LowerFooter className="lower__footer">
-        <h2>
-          Copyright &copy; 2025 <span>Epsilon labs</span>
-        </h2>
-      </LowerFooter>
-    </div>
+    <FooterContainer>
+      <TopSection>
+        {/* Đã xóa wave-container */}
+
+        <FooterContent>
+          <BrandSection>
+            <LogoContainer>
+              <img src={logo} alt="Epsilon Restaurant Logo" />
+            </LogoContainer>
+            <p>
+              Experience great food at Epsilon Restaurant, which offers a perfect blend of traditional 
+              and modern cuisine.
+            </p>
+            <SocialLinks>
+              <SocialIcon>
+                <FaFacebookF />
+              </SocialIcon>
+              <SocialIcon>
+                <AiFillInstagram />
+              </SocialIcon>
+              <SocialIcon>
+                <BsTwitter />
+              </SocialIcon>
+              <SocialIcon>
+                <GrLinkedinOption />
+              </SocialIcon>
+            </SocialLinks>
+          </BrandSection>
+
+          <AboutSection>
+            <FooterHeading>
+              <span>About Us</span>
+            </FooterHeading>
+            <p>
+              Bếp Thái Restaurant is located in Vung Tau, offering a luxurious, cozy space with a rich 
+              menu from top chefs. We are committed to providing the freshest ingredients and the most 
+              professional service.
+            </p>
+          </AboutSection>
+
+          <ContactSection>
+            <FooterHeading>
+              <span>Contact Us</span>
+            </FooterHeading>
+            <ContactItem>
+              <IconWrapper>
+                <FaPhoneAlt />
+              </IconWrapper>
+              <p>(+84) 123 456 789</p>
+            </ContactItem>
+            <ContactItem>
+              <IconWrapper>
+                <FaEnvelope />
+              </IconWrapper>
+              <p>epsilon.restaurant@gmail.com</p>
+            </ContactItem>
+            <ContactItem>
+              <IconWrapper>
+                <AiFillInstagram />
+              </IconWrapper>
+              <p>@EpsilonLabs</p>
+            </ContactItem>
+            <ContactItem>
+              <IconWrapper>
+                <FaMapMarkerAlt />
+              </IconWrapper>
+              <p>5 Street 87A, Thạnh Mỹ Lợi Ward, District 2, Ho Chi Minh City, Vietnam</p>
+            </ContactItem>
+          </ContactSection>
+        </FooterContent>
+      </TopSection>
+
+      <BottomSection>
+        <p>
+          Copyright &copy; 2025 <span>Epsilon Labs</span>
+        </p>
+      </BottomSection>
+    </FooterContainer>
   );
 }
 
-const Section = styled.footer`
-  margin: 0;
-  background: linear-gradient(to right, #fc4958, #e85d04);
+const FooterContainer = styled.footer`
+  width: 100%;
+  background: linear-gradient(135deg, #fc4958, #e68900);
   color: white;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  overflow: hidden;
+`;
+
+const TopSection = styled.div`
+  position: relative;
+  /* Đã xóa mọi CSS liên quan đến wave-container */
+`;
+
+const FooterContent = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10vw;
-  padding: 4vw;
-  
-  .about.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
-  }
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 5rem 5% 3rem;
+  position: relative;
+  z-index: 1;
 
-  .brand.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .brand.container img {
-    width: 150px; /* Đặt kích thước cố định */
-    height: auto; /* Đảm bảo tỷ lệ không bị méo */
-    max-width: 100%; /* Giữ nguyên kích thước khi thu nhỏ */
-    object-fit: contain; /* Tránh méo ảnh */
-    margin-bottom: 1rem;
-  }
-
-  p {
-    font-size: 1.1rem;
-    line-height: 2rem;
-    letter-spacing: 0.1rem;
-  }
-
-  ul {
-    display: flex;
-    list-style-type: none;
-    gap: 4vw;
-    margin-top: 2vw;
-
-    li {
-      padding: 0.8rem;
-      border-radius: 2rem;
-      background-color: white;
-      transition: 0.3s ease-in-out;
-      cursor: pointer;
-
-      &:hover {
-        background-color: black;
-
-        svg {
-          transform: scale(1.2);
-        }
-      }
-
-      svg {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #fc4958;
-        font-size: 1.6rem;
-        transition: 0.3s ease-in-out;
-      }
-    }
-  }
-
-  .container {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-
-    h3 {
-      font-size: 2rem;
-    }
-  }
-
-  /* Responsive */
-  @media screen and (max-width: 1080px) {
+  @media (max-width: 768px) {
     grid-template-columns: 1fr;
+    padding: 5rem 8% 2rem;
     text-align: center;
+  }
+`;
 
-    .brand.container img {
-      width: 150px; /* Giữ nguyên kích thước logo */
+const BrandSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  
+  p {
+    margin: 1rem 0;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    opacity: 0.9;
+  }
+
+  @media (max-width: 768px) {
+    align-items: center;
+  }
+`;
+
+// Đã chỉnh sửa LogoContainer - bỏ các hiệu ứng trang trí
+const LogoContainer = styled.div`
+  /* Đã xóa background, border-radius, padding, box-shadow */
+  margin-bottom: 1rem;
+  
+  img {
+    height: 60px;
+    width: auto;
+  }
+`;
+
+const SocialLinks = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+`;
+
+const SocialIcon = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  svg {
+    font-size: 1.2rem;
+    color: white;
+    transition: all 0.3s ease;
+  }
+  
+  &:hover {
+    background-color: #f9c74f;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    
+    svg {
+      color: #fc4958;
     }
   }
 `;
 
+const AboutSection = styled.div`
+  p {
+    margin-top: 1rem;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    opacity: 0.9;
+  }
+`;
 
-const LowerFooter = styled.div`
-  margin: 0;
-  text-align: center;
-  background-color: black;
-  color: white;
-  padding: 1rem;
-  h2 {
-    span {
-      color: #fc4958;
-      text-transform: uppercase;
+const ContactSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const FooterHeading = styled.h3`
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+  color: #f9c74f;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 40px;
+    height: 3px;
+    background-color: #f9c74f;
+    border-radius: 10px;
+  }
+  
+  span {
+    background: #f9c74f;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 700;
+  }
+  
+  @media (max-width: 768px) {
+    &::after {
+      left: 50%;
+      transform: translateX(-50%);
     }
   }
-  @media screen and (min-width: 260px) and (max-width: 450px) {
-    h2 {
-      span {
-        display: block;
-      }
+`;
+
+const ContactItem = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  
+  p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+    opacity: 0.9;
+  }
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+`;
+
+const IconWrapper = styled.div`
+  min-width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  svg {
+    font-size: 1rem;
+    color: #f9c74f;
+  }
+`;
+
+const BottomSection = styled.div`
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 1.2rem 0;
+  text-align: center;
+  
+  p {
+    font-size: 0.9rem;
+    margin: 0;
+    opacity: 0.9;
+    
+    span {
+      color: #f9c74f;
+      font-weight: 600;
+      letter-spacing: 1px;
     }
   }
 `;

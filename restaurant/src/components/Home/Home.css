@@ -1,0 +1,4 @@
+/* Định dạng chung cho Home */
+.home-container {
+    padding-top: 150px; /* Điều chỉnh theo chiều cao của header */
+  }

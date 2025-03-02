@@ -1,6 +1,6 @@
 .menu-container {
+  margin: 150px auto 20px; /* Cách header 150px */
   max-width: 900px;
-  margin: 20px auto;
   padding: 20px;
   background: #f9f9f9;
   border-radius: 10px;
