@@ -3,12 +3,12 @@ import styled from "styled-components";
 import foodYummy from "../../assets/Epsilon.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { VscChromeClose } from "react-icons/vsc";
+import { FaShoppingCart } from "react-icons/fa"; // Thêm biểu tượng giỏ hàng
 
 export default function Navbar() {
   const [navbarState, setNavbarState] = useState(false);
   const [activeLink, setActiveLink] = useState("home");
-  const [visible, setVisible] = useState(true);
-  const [scrollY, setScrollY] = useState(0);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     // Lấy đường dẫn hiện tại và set active link tương ứng khi component mount
@@ -16,8 +16,9 @@ export default function Navbar() {
     if (path === "/") setActiveLink("home");
     else if (path === "/menu") setActiveLink("menu");
     else if (path.includes("contact")) setActiveLink("contact");
-    else if (path.includes("products")) setActiveLink("products");
-    else if (path.includes("newsletter")) setActiveLink("newsletter");
+    else if (path.includes("events")) setActiveLink("events");
+    else if (path.includes("reservation")) setActiveLink("reservation");
+    else if (path.includes("specialties")) setActiveLink("specialties");
 
     const handleOutsideClick = (e) => {
       // Chỉ đóng menu khi click bên ngoài và menu đang mở
@@ -35,25 +36,25 @@ export default function Navbar() {
       document.addEventListener("mousedown", handleOutsideClick);
     }
 
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, [navbarState]); // Thêm navbarState vào dependencies
-
-  useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setVisible(currentScrollY < scrollY || currentScrollY < 10);
-      setScrollY(currentScrollY);
+      const scrollPosition = window.scrollY;
+      if (scrollPosition > 100) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
 
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [scrollY]);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [navbarState]);
 
   const toggleMenu = () => {
-    setNavbarState(!navbarState);
+    setNavbarState((prev) => !prev);
   };
 
   // Hàm xử lý khi click vào link
@@ -66,9 +67,75 @@ export default function Navbar() {
 
   return (
     <>
-      <Nav className={visible ? "visible" : "hidden"}>
-        <div className="brand">
-          <img src={foodYummy} alt="Icon" />
+      <Nav scrolled={scrolled}>
+        <div className="container">
+          <div className="brand">
+            <img src={foodYummy} alt="Logo" />
+          </div>
+          <div className="nav-right">
+            <ul className="links">
+              <li>
+                <a 
+                  href="/" 
+                  className={activeLink === "home" ? "active" : ""}
+                  onClick={() => handleLinkClick("home")}
+                >
+                  WELCOME
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/specialties" 
+                  className={activeLink === "specialties" ? "active" : ""}
+                  onClick={() => handleLinkClick("specialties")}
+                >
+                  SPECIALTIES
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/menu" 
+                  className={activeLink === "menu" ? "active" : ""}
+                  onClick={() => handleLinkClick("menu")}
+                >
+                  MENU
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/reservation" 
+                  className={activeLink === "reservation" ? "active" : ""}
+                  onClick={() => handleLinkClick("reservation")}
+                >
+                  RESERVATION
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/events" 
+                  className={activeLink === "events" ? "active" : ""}
+                  onClick={() => handleLinkClick("events")}
+                >
+                  EVENTS
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/contact" 
+                  className={activeLink === "contact" ? "active" : ""}
+                  onClick={() => handleLinkClick("contact")}
+                >
+                  CONTACT
+                </a>
+              </li>
+            </ul>
+            <div className="cart-and-order">
+              <div className="cart-icon">
+                <FaShoppingCart />
+              </div>
+              <button className="order-now-btn">ORDER NOW</button>
+            </div>
+          </div>
           <div className="toggle">
             {navbarState ? (
               <VscChromeClose onClick={toggleMenu} />
@@ -77,62 +144,9 @@ export default function Navbar() {
             )}
           </div>
         </div>
-        <ul className="links">
-          <li>
-            <a 
-              href="/" 
-              className={activeLink === "home" ? "active" : ""}
-              onClick={() => handleLinkClick("home")}
-            >
-              Home
-            </a>
-          </li>
-          <li>
-            <a 
-              href="" 
-              className={activeLink === "products" ? "active" : ""}
-              onClick={() => handleLinkClick("products")}
-            >
-              Promotion
-            </a>
-          </li>
-          <li>
-            <a 
-              href="/menu" 
-              className={activeLink === "menu" ? "active" : ""}
-              onClick={() => handleLinkClick("menu")}
-            >
-              Menu
-            </a>
-          </li>
-          <li>
-            <a 
-              href="" 
-              className={activeLink === "newsletter" ? "active" : ""}
-              onClick={() => handleLinkClick("newsletter")}
-            >
-              Reservation
-            </a>
-          </li>
-          <li>
-            <a 
-              href="/contact" 
-              className={activeLink === "contact" ? "active" : ""}
-              onClick={() => handleLinkClick("contact")}
-            >
-              Contact us
-            </a>
-          </li>
-          <li>
-            <button className="reserve-button">Order now</button>
-          </li>
-        </ul>
       </Nav>
 
       <ResponsiveNav state={navbarState} className="responsive-nav">
-        <div className="close-button" onClick={toggleMenu}>
-          <VscChromeClose />
-        </div>
         <ul>
           <li>
             <a 
@@ -140,7 +154,16 @@ export default function Navbar() {
               className={activeLink === "home" ? "active" : ""}
               onClick={() => handleLinkClick("home")}
             >
-              Home
+              WELCOME
+            </a>
+          </li>
+          <li>
+            <a 
+              href="/specialties" 
+              className={activeLink === "specialties" ? "active" : ""}
+              onClick={() => handleLinkClick("specialties")}
+            >
+              SPECIALTIES
             </a>
           </li>
           <li>
@@ -149,7 +172,25 @@ export default function Navbar() {
               className={activeLink === "menu" ? "active" : ""}
               onClick={() => handleLinkClick("menu")}
             >
-              Menu
+              MENU
+            </a>
+          </li>
+          <li>
+            <a 
+              href="/reservation" 
+              className={activeLink === "reservation" ? "active" : ""}
+              onClick={() => handleLinkClick("reservation")}
+            >
+              RESERVATION
+            </a>
+          </li>
+          <li>
+            <a 
+              href="/events" 
+              className={activeLink === "events" ? "active" : ""}
+              onClick={() => handleLinkClick("events")}
+            >
+              EVENTS
             </a>
           </li>
           <li>
@@ -158,29 +199,14 @@ export default function Navbar() {
               className={activeLink === "contact" ? "active" : ""}
               onClick={() => handleLinkClick("contact")}
             >
-              Contact
+              CONTACT
             </a>
           </li>
-          <li>
-            <a 
-              href="#products" 
-              className={activeLink === "products" ? "active" : ""}
-              onClick={() => handleLinkClick("products")}
-            >
-              Products
-            </a>
-          </li>
-          <li>
-            <a 
-              href="#newsletter" 
-              className={activeLink === "newsletter" ? "active" : ""}
-              onClick={() => handleLinkClick("newsletter")}
-            >
-              Newsletter
-            </a>
-          </li>
-          <li>
-            <button className="reserve-button">Reserve</button>
+          <li className="cart-and-order-mobile">
+            <div className="cart-icon">
+              <FaShoppingCart />
+            </div>
+            <button className="order-now-btn">ORDER NOW</button>
           </li>
         </ul>
       </ResponsiveNav>
@@ -193,47 +219,59 @@ const Nav = styled.nav`
   top: 0;
   left: 0;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.85);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: transform 0.6s ease-in-out, background-color 0.6s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 0 4vw;
+  background-color: ${({ scrolled }) => (scrolled ? "rgba(0, 0, 0, 0.9)" : "transparent")};
+  transition: background-color 0.4s ease-in-out;
   z-index: 1000;
+  padding: 15px 0;
   
-  &.hidden {
-    transform: translateY(-100%);
-    transition: transform 0.8s cubic-bezier(0.33, 1, 0.68, 1);
-  }
-  
-  &.visible {
-    transform: translateY(0);
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  .container {
+    width: 100%;
+    padding: 0 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   
   .brand {
     display: flex;
     align-items: center;
+    
     img {
-      margin-top: 1rem;
+      height: 40px;
       cursor: pointer;
     }
-    .toggle {
-      display: none;
-      cursor: pointer;
-      font-size: 1.5rem;
-      color: white;
-      .hidden {
-        display: none;
-      }
+  }
+
+  .toggle {
+    display: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #f9c74f;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      color: #fc4958;
     }
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1;
   }
 
   .links {
     display: flex;
     list-style: none;
     gap: 2rem;
+    margin: 0;
+    padding: 0;
 
     li {
       display: flex;
@@ -242,58 +280,89 @@ const Nav = styled.nav`
 
       a {
         color: #f9c74f;
-        font-weight: 600;
+        font-weight: 400;
         text-decoration: none;
         text-transform: uppercase;
-        letter-spacing: 0.2rem;
+        letter-spacing: 1px;
         transition: 0.3s ease-in-out;
-        padding: 10px 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-
+        padding: 5px 0;
+        position: relative;
+        
         &:hover {
           color: #fc4958;
         }
+        
+        &.active {
+          color: #fc4958;
+        }
+        
+        /* Thêm hiệu ứng đường gạch dưới khi hover */
+        &::after {
+          content: '';
+          position: absolute;
+          width: 0;
+          height: 2px;
+          bottom: 0;
+          left: 0;
+          background-color: #fc4958;
+          transition: width 0.3s ease;
+        }
+        
+        &:hover::after {
+          width: 100%;
+        }
       }
-      .active {
+    }
+  }
+
+  .cart-and-order {
+    display: flex;
+    align-items: center;
+    margin-left: 2rem;
+    
+    .cart-icon {
+      font-size: 1.5rem;
+      color: #f9c74f;
+      cursor: pointer;
+      margin-right: 1rem;
+      transition: 0.3s ease;
+      
+      &:hover {
         color: #fc4958;
       }
     }
-
-    .reserve-button {
+    
+    .order-now-btn {
       background-color: #fc4958;
       color: white;
-      font-weight: bold;
-      font-size: 1.2rem;
-      padding: 0.8rem 1.5rem;
       border: none;
-      border-radius: 10px;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-weight: 500;
       cursor: pointer;
-      transition: 0.3s ease-in-out;
-      letter-spacing: 0.1rem;
-
+      transition: all 0.3s ease;
+      
       &:hover {
-        background-color: #f9c74f;
+        background-color: #e63946;
+        box-shadow: 0 2px 8px rgba(230, 57, 70, 0.4);
       }
     }
   }
-  @media screen and (max-width: 1300px) {
-    .links {
-      gap: 10px;
-    }
-  }
-
+  
   @media screen and (max-width: 1080px) {
-    .brand {
-      width: 100%;
-      justify-content: space-between;
-      .toggle {
-        display: block;
-      }
+    .container {
+      padding: 0 5%;
     }
-    .links {
+    
+    .brand {
+      flex: 0;
+    }
+    
+    .toggle {
+      display: flex;
+    }
+    
+    .nav-right {
       display: none;
     }
   }
@@ -304,87 +373,77 @@ const ResponsiveNav = styled.div`
   right: ${({ state }) => (state ? "0" : "-100vw")};
   top: 0;
   z-index: 10;
-  background-color: white;
+  background-color: rgba(0, 0, 0, 0.95);
   height: 100vh;
-  width: 60%;
+  width: 70%;
   transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 3rem;
-  box-shadow: ${({ state }) =>
-    state ? "-4px 0 10px rgba(0,0,0,0.1)" : "none"};
-  .close-button {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    font-size: 1.8rem;
-    cursor: pointer;
-    color: #fc4958;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: all 0.5s ease;
-
-    &:hover {
-      background-color: rgba(252, 73, 88, 0.1);
-      transform: rotate(90deg);
-    }
-  }
+  padding-top: 4rem;
 
   ul {
     list-style: none;
     width: 100%;
+    padding: 0;
+    margin-top: 2rem;
 
     li {
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 50px;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
 
       a {
         text-decoration: none;
-        color: #f9c74f;
+        color: white;
         font-size: 1.2rem;
         transition: 0.3s ease-in-out;
         text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
-
+        letter-spacing: 1px;
+        
         &:hover {
           color: #fc4958;
         }
         
         &.active {
-          color: #fc4958; /* Màu active cho menu responsive */
+          color: #fc4958;
           font-weight: bold;
         }
       }
     }
-  }
 
-  .reserve-button {
-    background-color: #fc4958;
-    color: white;
-    font-weight: bold;
-    font-size: 1.2rem;
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-top: 2rem;
-    transition: 0.5s ease-in-out;
-    letter-spacing: 0.1rem;
-
-    &:hover {
-      background-color: #f9c74f;
+    .cart-and-order-mobile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 1.5rem;
+      
+      .cart-icon {
+        font-size: 1.5rem;
+        color: #f9c74f;
+        margin-bottom: 1rem;
+        transition: 0.3s ease;
+        
+        &:hover {
+          color: #fc4958;
+        }
+      }
+      
+      .order-now-btn {
+        background-color: #fc4958;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        
+        &:hover {
+          background-color: #e63946;
+        }
+      }
     }
   }
 `;
