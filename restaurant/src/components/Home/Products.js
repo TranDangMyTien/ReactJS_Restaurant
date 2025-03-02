@@ -40,7 +40,7 @@ export default function Products() {
     <Section id="products">
       <div className="title">
         <h1>
-          <span>Favourite</span> All the time!
+          <span>This week's</span> promotion!
         </h1>
       </div>
       <div className="products">

@@ -1,6 +1,6 @@
 import React from "react";
 import Banner from "./Banner";
-import Services from "./Services";
+import CustomerFeedback from "./CustomerFeedback";
 import RestaurantBanner from "./RestaurantBanner";
 import Products from "./Products";
 import "./Home.css"; // Import file CSS
@@ -10,7 +10,7 @@ const Home = () => {
     <div className="home-container">
       <RestaurantBanner />
       <Banner />
-      <Services />
+      <CustomerFeedback />
       <Products />
     </div>
   );
