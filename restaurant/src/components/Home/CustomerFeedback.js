@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { TitleStyles } from "./ReusableStyles";
 
@@ -8,21 +8,21 @@ export default function CustomerFeedback() {
   // Mảng chứa các phản hồi của khách hàng
   const testimonials = [
     {
-      image: "https://res.cloudinary.com/dvxzmwuat/image/upload/v1715712424/jkpwd5crqq8cvbuslwlq.png", // Thay bằng hình ảnh thực tế
+      image: "https://res.cloudinary.com/dvxzmwuat/image/upload/v1715712424/jkpwd5crqq8cvbuslwlq.png", 
       content: "I found every dish delicious, let me list the dishes I ate: Raw shrimp salad, crispy fried catfish salad, pad thai, fried rice...",
       user: "@tastemebae",
       location: "Quận 11, Hồ Chí Minh",
       rating: 5
     },
     {
-      image: "https://res.cloudinary.com/dvxzmwuat/image/upload/v1718945432/zzoxebexjrkkxwlfsxip.jpg", // Thay bằng hình ảnh thực tế
+      image: "https://res.cloudinary.com/dvxzmwuat/image/upload/v1718945432/zzoxebexjrkkxwlfsxip.jpg", 
       content: "Spacious, airy space. Delicious food, unique flavor. Enthusiastic, attentive staff.",
       user: "@foodlover",
       location: "Quận 1, Hồ Chí Minh",
       rating: 5
     },
     {
-      image: "https://res.cloudinary.com/dvxzmwuat/image/upload/v1718884582/te0yqajz8dp0m1vae0o8.jpg", // Thay bằng hình ảnh thực tế
+      image: "https://res.cloudinary.com/dvxzmwuat/image/upload/v1718884582/te0yqajz8dp0m1vae0o8.jpg", 
       content: "Fresh seafood dishes, reasonable prices. Especially the raw shrimp salad, eat once and remember forever. Will come back next time.",
       user: "@seafoodfan",
       location: "Vũng Tàu",
@@ -30,7 +30,7 @@ export default function CustomerFeedback() {
     }
   ];
 
-  // Tự động chuyển đổi slide sau mỗi 5 giây
+   // Tự động chuyển đổi slide sau mỗi 5 giây
   // useEffect(() => {
   //   const interval = setInterval(() => {
   //     setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
@@ -51,9 +51,9 @@ export default function CustomerFeedback() {
   // Hiển thị số sao dựa trên rating
   const renderStars = (rating) => {
     return Array(5).fill(0).map((_, i) => (
-      <span key={i} className={i < rating ? "star filled" : "star"}>
+      <StarSpan key={i} className={i < rating ? "star filled" : "star"}>
         ★
-      </span>
+      </StarSpan>
     ));
   };
 
@@ -66,207 +66,224 @@ export default function CustomerFeedback() {
         </p>
       </div>
 
-      <div className="testimonials-container">
-        <button className="nav-button prev" onClick={handlePrev}>❮</button>
+      <TestimonialsContainer>
+        <NavButton className="prev" onClick={handlePrev} />
         
-        <div className="testimonial-card">
-          <div className="testimonial-content">
-            <div className="quote-icon">❝</div>
-            <p className="feedback-text">
+        <TestimonialCard>
+          <TestimonialContent>
+            <QuoteIcon>❝</QuoteIcon>
+            <FeedbackText>
               {testimonials[currentIndex].content}
-            </p>
-            <div className="user-info">
-              <span className="username">{testimonials[currentIndex].user}</span>
-              <span className="location">{testimonials[currentIndex].location}</span>
-            </div>
-            <div className="rating">
+            </FeedbackText>
+            <UserInfo>
+              <Username>{testimonials[currentIndex].user}</Username>
+              <Location>{testimonials[currentIndex].location}</Location>
+            </UserInfo>
+            <RatingContainer>
               {renderStars(testimonials[currentIndex].rating)}
-            </div>
-          </div>
-          <div className="testimonial-image">
-            <img src={testimonials[currentIndex].image} alt="Customer" />
-          </div>
-        </div>
+            </RatingContainer>
+          </TestimonialContent>
+          <TestimonialImage>
+            <img 
+              src={testimonials[currentIndex].image} 
+              alt="Customer" 
+              onError={(e) => e.target.style.display = 'none'}
+            />
+          </TestimonialImage>
+        </TestimonialCard>
         
-        <button className="nav-button next" onClick={handleNext}>❯</button>
-      </div>
+        <NavButton className="next" onClick={handleNext} />
+      </TestimonialsContainer>
 
-      <div className="dots">
+      <DotsContainer>
         {testimonials.map((_, index) => (
-          <span 
+          <Dot 
             key={index} 
-            className={`dot ${index === currentIndex ? "active" : ""}`}
+            active={index === currentIndex}
             onClick={() => setCurrentIndex(index)}
-          ></span>
+          />
         ))}
-      </div>
+      </DotsContainer>
     </Section>
   );
 }
 
+// Styled Components
 const Section = styled.section`
   margin: 4rem 4rem;
   ${TitleStyles};
-  
-  .testimonials-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 3rem;
-    position: relative;
+
+  @media screen and (max-width: 768px) {
+    margin: 2rem;
   }
-  
-  .testimonial-card {
-    display: flex;
-    background-color: #fff;
-    border-radius: 1rem;
-    overflow: hidden;
-    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 900px;
+`;
+
+const TestimonialsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3rem;
+  position: relative;
+
+  @media screen and (max-width: 768px) {
+    margin-top: 2rem;
   }
-  
-  .testimonial-content {
-    flex: 1;
-    padding: 2rem;
-    position: relative;
+`;
+
+const NavButton = styled.button`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  cursor: pointer;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.8);
   }
-  
-  .quote-icon {
-    font-size: 4rem;
-    color: #f9c74f;
-    position: absolute;
-    top: 10px;
+
+  &.prev {
     left: 20px;
-    opacity: 0.3;
   }
-  
-  .feedback-text {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    margin: 1.5rem 0;
-    position: relative;
-    z-index: 1;
+
+  &.next {
+    right: 20px;
   }
-  
-  .user-info {
-    display: flex;
-    flex-direction: column;
-    margin-top: 1rem;
+
+  &::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    border-top: 2px solid white;
+    border-right: 2px solid white;
+    display: block;
   }
-  
-  .username {
-    color: #fc4958;
-    font-weight: bold;
-    font-size: 1.1rem;
+
+  &.prev::before {
+    transform: rotate(-135deg);
   }
-  
-  .location {
-    color: #666;
-    font-size: 0.9rem;
+
+  &.next::before {
+    transform: rotate(45deg);
   }
-  
-  .rating {
-    margin-top: 0.5rem;
+
+  @media screen and (max-width: 768px) {
+    width: 35px;
+    height: 35px;
   }
-  
-  .star {
-    color: #ddd;
-    font-size: 1.5rem;
-    margin-right: 5px;
+`;
+
+const TestimonialCard = styled.div`
+  display: flex;
+  background-color: #fff;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 900px;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column-reverse;
   }
-  
-  .star.filled {
+`;
+
+const TestimonialContent = styled.div`
+  flex: 1;
+  padding: 2rem;
+  position: relative;
+`;
+
+const QuoteIcon = styled.div`
+  font-size: 4rem;
+  color: #f9c74f;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  opacity: 0.3;
+`;
+
+const FeedbackText = styled.p`
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin: 1.5rem 0;
+  position: relative;
+  z-index: 1;
+`;
+
+const UserInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+`;
+
+const Username = styled.span`
+  color: #fc4958;
+  font-weight: bold;
+  font-size: 1.1rem;
+`;
+
+const Location = styled.span`
+  color: #666;
+  font-size: 0.9rem;
+`;
+
+const RatingContainer = styled.div`
+  margin-top: 0.5rem;
+`;
+
+const StarSpan = styled.span`
+  color: #ddd;
+  font-size: 1.5rem;
+  margin-right: 5px;
+
+  &.filled {
     color: #f9c74f;
   }
-  
-  .testimonial-image {
-    width: 300px;
-    height: auto;
-    overflow: hidden;
-  }
-  
-  .testimonial-image img {
+`;
+
+const TestimonialImage = styled.div`
+  width: 300px;
+  height: auto;
+  overflow: hidden;
+
+  img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  
-  .nav-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    border: none;
-    cursor: pointer;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-    }
-  
-  .nav-button:hover {
-    background-color: #f9c74f;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    height: 200px;
   }
-  
-  .prev {
-    left: -20px;
-  }
-  
-  .next {
-    right: -20px;
-  }
-  
-  .dots {
-    display: flex;
-    justify-content: center;
-    margin-top: 2rem;
-  }
-  
-  .dot {
-    height: 12px;
-    width: 12px;
-    margin: 0 5px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-    transition: 0.3s ease-in-out;
-    cursor: pointer;
-  }
-  
-  .dot.active {
-    background-color: #fc4958;
-  }
-  
-  @media screen and (min-width: 260px) and (max-width: 1080px) {
-    margin: 2rem;
-    
-    .testimonial-card {
-      flex-direction: column-reverse;
-    }
-    
-    .testimonial-image {
-      width: 100%;
-      height: 200px;
-    }
-    
-    .nav-button {
-      width: 35px;
-      height: 35px;
-      font-size: 1.2rem;
-    }
-    
-    .prev {
-      left: 10px;
-    }
-    
-    .next {
-      right: 10px;
-    }
+`;
+
+const DotsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  gap: 12px;
+`;
+
+const Dot = styled.div`
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: ${(props) => (props.active ? "#fc4958" : "rgba(0, 0, 0, 0.3)")};
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: ${(props) => (props.active ? "#fc4958" : "rgba(0, 0, 0, 0.5)")};
+    transform: scale(1.1);
   }
 `;

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import foodYummy from "../../assets/Epsilon.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { VscChromeClose } from "react-icons/vsc";
-import { FaShoppingCart } from "react-icons/fa"; // Thêm biểu tượng giỏ hàng
+import { FaShoppingCart } from "react-icons/fa";
 
 export default function Navbar() {
   const [navbarState, setNavbarState] = useState(false);
@@ -37,11 +37,7 @@ export default function Navbar() {
 
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      if (scrollPosition > 100) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(scrollPosition > 100);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -126,11 +122,11 @@ export default function Navbar() {
               <button className="order-now-btn">ORDER NOW</button>
             </div>
           </div>
-          <div className="toggle">
+          <div className="toggle" onClick={toggleMenu}>
             {navbarState ? (
-              <VscChromeClose onClick={toggleMenu} />
+              <VscChromeClose className="toggle-icon" />
             ) : (
-              <GiHamburgerMenu onClick={toggleMenu} />
+              <GiHamburgerMenu className="toggle-icon" />
             )}
           </div>
         </div>
@@ -226,17 +222,20 @@ const Nav = styled.nav`
   .toggle {
     display: none;
     cursor: pointer;
-    font-size: 1.5rem;
-    color: #f9c74f;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
     
-    &:hover {
+    .toggle-icon {
+      font-size: 1.5rem;
+      color: #f9c74f;
+      width: 40px;
+      height: 40px;
+      padding: 8px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .toggle-icon:hover {
       color: #fc4958;
+      background-color: rgba(252, 73, 88, 0.2);
     }
   }
 
@@ -277,7 +276,6 @@ const Nav = styled.nav`
           color: #fc4958;
         }
         
-        /* Thêm hiệu ứng đường gạch dưới khi hover */
         &::after {
           content: '';
           position: absolute;
