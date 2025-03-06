@@ -4,11 +4,13 @@ import foodYummy from "../../assets/Epsilon.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { VscChromeClose } from "react-icons/vsc";
 import { FaShoppingCart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const [navbarState, setNavbarState] = useState(false);
   const [activeLink, setActiveLink] = useState("home");
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Lấy đường dẫn hiện tại và set active link tương ứng khi component mount
@@ -64,9 +66,9 @@ export default function Navbar() {
     <>
       <Nav scrolled={scrolled}>
         <div className="container">
-          <div className="brand">
-            <img src={foodYummy} alt="Logo" />
-          </div>
+        <div className="brand" onClick={() => navigate("/")}>
+          <img src={foodYummy} alt="Logo" style={{ cursor: "pointer" }} />
+        </div>
           <div className="nav-right">
             <ul className="links">
               <li>
