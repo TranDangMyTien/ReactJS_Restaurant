@@ -332,8 +332,11 @@ const ProductsWrapper = styled.div`
           padding: 1rem; 
           transform: translateY(20px); 
           transition: transform 0.3s ease; 
-          max-height: 100%; 
-          overflow-y: auto; 
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          width: 100%;
+          justify-content: center;
 
           h2 { 
             font-size: 1.5rem; 
@@ -347,11 +350,15 @@ const ProductsWrapper = styled.div`
           } 
 
           p { 
-            font-size: 1rem; 
+           font-size: 1rem; 
             margin-bottom: 1rem; 
             line-height: 1.4; 
-            max-height: 150px; 
-            overflow-y: auto; 
+            max-height: 3.8em; /* Giới hạn hiển thị khoảng 2-3 dòng */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* Số dòng muốn hiển thị */
+            -webkit-box-orient: vertical;
           } 
         } 
 
@@ -454,6 +461,7 @@ const ActionButton = styled.button`
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-top: auto;
 
   &:hover {
     background-color: #000;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Swal from "sweetalert2";
 import "./Contact.css";
+import Swal from "sweetalert2";
 
 export default function Contact() {
   const [result, setResult] = useState("");
@@ -68,49 +68,40 @@ export default function Contact() {
 
   return (
     <div className="contact-container" id="contact">
-      <h2 className="contact-title">Contact Us</h2>
-      <p className="contact-subtitle">
-        We are always ready to listen to your feedback and serve you!
-      </p>
+      {/* Title section */}
+      <div className="contact-header">
+        <h2 className="contact-title">Contact Us</h2>
+        <p className="contact-subtitle">
+          We are always ready to listen to your feedback and serve you!
+        </p>
+      </div>
 
-      <div className="contact-info-section">
-        <div className="contact-info-item">
-          <i className="fas fa-map-marker-alt"></i>
-          <div>
-            <h4>Address</h4>
-            <p>5 Street 87A, Thạnh Mỹ Lợi Ward, District 2, Ho Chi Minh City, Vietnam</p>
-          </div>
+      {/* Introduction section with image */}
+      <div className="contact-intro">
+        <div className="contact-intro-text">
+          <p>
+            Bếp Thái Restaurant is a premier dining establishment in Thanh My Loi. 
+            With an elegant atmosphere, diverse menu, and professional staff, 
+            we are committed to providing you with the finest dining experience.
+          </p>
+          <p>
+            Please contact us for reservations, event planning, or to share your feedback. 
+            We look forward to serving you!
+          </p>
         </div>
-        
-        <div className="contact-info-item">
-          <i className="fas fa-phone-alt"></i>
-          <div>
-            <h4>Phone</h4>
-            <p>(+84) 123 456 789</p>
-          </div>
-        </div>
-        
-        <div className="contact-info-item">
-          <i className="fas fa-envelope"></i>
-          <div>
-            <h4>Email</h4>
-            <p>epsilon.restaurant@gmail.com</p>
-          </div>
-        </div>
-        
-        <div className="contact-info-item">
-          <i className="fas fa-clock"></i>
-          <div>
-            <h4>Opening Hours</h4>
-            <p>Monday - Friday: 10:00 - 22:00</p>
-            <p>Saturday - Sunday: 09:00 - 23:00</p>
-          </div>
+        <div className="contact-intro-image">
+          <img 
+            src="https://res.cloudinary.com/dvxzmwuat/image/upload/v1740931265/snapedit_1740931151637_athixb.png" 
+            alt="Epsilon Restaurant" 
+            className="restaurant-image"
+          />
         </div>
       </div>
 
-      <div className="contact-content">
+      {/* Main content: form on left, info + map on right */}
+      <div className="contact-main-content">
+        {/* Contact form on left */}
         <div className="form-container">
-          <h3 className="form-title">Send Message</h3>
           <form onSubmit={onSubmit} className="contact-form">
             <div className="form-row">
               <div className="form-group">
@@ -172,24 +163,53 @@ export default function Contact() {
             >
               {loading ? "Sending..." : "Send Message"}
             </button>
+            <span className="result-message">{result}</span>
           </form>
-          <span className="result-message">{result}</span>
         </div>
         
-        <div className="map-container">
-          <h3 className="map-title">Restaurant Location</h3>
-          <iframe
-            title="Google Map"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.5875141589954!2d106.75433477316933!3d10.766239059385358!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317525c7ba6c44b7%3A0xd7685f3ecd2a875!2zNSDEkMaw4budbmcgODdBLCBQaMaw4budbmcgVGjhuqFuaCBN4bu5IEzhu6NpLCBRdeG6rW4gMiwgSOG7kyBDaMOtIE1pbmgsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1740585715736!5m2!1svi!2s"
-            width="100%"
-            height="300"
-            style={{ border: "0" }}
-            allowFullScreen=""
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          ></iframe>
+        {/* Right section: contact info + map */}
+        <div className="contact-right-section">
+          {/* Contact information */}
+          <div className="contact-info-box">
+            <h3>Contact Information</h3>
+            <ul className="contact-info-list">
+              <li>
+                <i className="fas fa-map-marker-alt"></i>
+                <span>5 Street 87A, Thạnh Mỹ Lợi Ward, District 2, Ho Chi Minh City, Vietnam</span>
+              </li>
+              <li>
+                <i className="fas fa-phone-alt"></i>
+                <span>(+84) 123 456 789</span>
+              </li>
+              <li>
+                <i className="fas fa-envelope"></i>
+                <span>bepthai.restaurant@gmail.com</span>
+              </li>
+              <li>
+                <i className="fas fa-clock"></i>
+                <span>Monday - Friday: 10:00 - 22:00</span>
+              </li>
+              <li>
+                <i className="fas fa-calendar"></i>
+                <span>Saturday - Sunday: 09:00 - 23:00</span>
+              </li>
+            </ul>
+          </div>
+          
+          {/* Google Maps */}
+          <div className="map-container">
+            <iframe
+              title="Google Map"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.5875141589954!2d106.75433477316933!3d10.766239059385358!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317525c7ba6c44b7%3A0xd7685f3ecd2a875!2zNSDEkMaw4budbmcgODdBLCBQaMaw4budbmcgVGjhuqFuaCBN4bu5IEzhu6NpLCBRdeG6rW4gMiwgSOG7kyBDaMOtIE1pbmgsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1740585715736!5m2!1svi!2s"
+              width="100%"
+              height="300"
+              style={{ border: "0" }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
         </div>
-
       </div>
     </div>
   );
