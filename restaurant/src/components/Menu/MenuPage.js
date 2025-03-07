@@ -14,10 +14,10 @@ const removeVietnameseTones = (str) => {
 
 const MenuPage = () => {
   const [search, setSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("Tất cả");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   // Danh mục món ăn (thêm "Tất cả")
-  const categories = ["Tất cả", ...new Set(foodData.map((food) => food.category))];
+  const categories = ["All", ...new Set(foodData.map((food) => food.category))];
 
   // Lọc món ăn theo từ khóa hoặc danh mục
   const filteredFoods = foodData.filter((food) => {
@@ -25,7 +25,7 @@ const MenuPage = () => {
     const searchNoAccent = removeVietnameseTones(search).toLowerCase();
 
     const matchesSearch = foodNameNoAccent.includes(searchNoAccent);
-    const matchesCategory = selectedCategory === "Tất cả" || food.category === selectedCategory;
+    const matchesCategory = selectedCategory === "All" || food.category === selectedCategory;
 
     return matchesSearch && matchesCategory;
   });
@@ -40,7 +40,7 @@ const MenuPage = () => {
         value={search}
         onChange={(e) => {
           setSearch(e.target.value);
-          setSelectedCategory("Tất cả"); // Reset danh mục khi tìm kiếm
+          setSelectedCategory("All"); // Reset danh mục khi tìm kiếm
         }}
       />
 
