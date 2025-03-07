@@ -35,7 +35,7 @@ const MenuPage = () => {
       {/* Thanh tìm kiếm */}
       <input
         type="text"
-        placeholder="Tìm kiếm món ăn..."
+        placeholder="Search for food..."
         className="search-bar"
         value={search}
         onChange={(e) => {
