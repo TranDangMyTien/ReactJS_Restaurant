@@ -4,6 +4,7 @@ import CustomerFeedback from "./CustomerFeedback";
 import RestaurantBanner from "./RestaurantBanner";
 import Products from "./Products";
 import "./Home.css"; // Import file CSS
+import Contact from "../Contact/Contact";
 
 const Home = () => {
   return (
@@ -12,6 +13,7 @@ const Home = () => {
       <Banner />
       <CustomerFeedback />
       <Products />
+      <Contact />
     </div>
   );
 };

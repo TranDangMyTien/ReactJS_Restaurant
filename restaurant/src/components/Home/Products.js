@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { TitleStyles, imageZoomEffect } from "./ReusableStyles"; 
 
 export default function Products() { 
+  
   const data = [ 
     { 
       id: 1,
@@ -160,7 +161,7 @@ export default function Products() {
         <h1> 
           <span>This week's</span> promotions! 
         </h1> 
-        <p>Khám phá những ưu đãi tuyệt vời từ các sản phẩm của chúng tôi!</p>
+        <p>Discover great deals on our products!</p>
       </div>
       <div className="products-navigation">
         <NavButton 
