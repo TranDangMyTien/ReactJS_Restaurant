@@ -375,10 +375,11 @@ const Nav = styled.nav`
   top: 0;
   left: 0;
   width: 100%;
-  background-color: ${({ scrolled }) => (scrolled ? "rgba(0, 0, 0, 0.9)" : "transparent")};
-  transition: background-color 0.4s ease-in-out;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
   z-index: 1000;
   padding: 15px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   
   .container {
     width: 100%;

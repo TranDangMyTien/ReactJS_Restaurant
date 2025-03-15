@@ -9,76 +9,33 @@ import { GrLinkedinOption } from "react-icons/gr";
 export default function Footer() {
   return (
     <FooterContainer>
-      <TopSection>
-        {/* Đã xóa wave-container */}
+      <InstagramSection>
+        <p>Follow us on Instagram</p>
+      </InstagramSection>
 
-        <FooterContent>
-          <BrandSection>
-            <LogoContainer>
-              <img src={logo} alt="Epsilon Restaurant Logo" />
-            </LogoContainer>
-            <p>
-              Experience great food at Epsilon Restaurant, which offers a perfect blend of traditional 
-              and modern cuisine.
-            </p>
-            <SocialLinks>
-              <SocialIcon>
-                <FaFacebookF />
-              </SocialIcon>
-              <SocialIcon>
-                <AiFillInstagram />
-              </SocialIcon>
-              <SocialIcon>
-                <BsTwitter />
-              </SocialIcon>
-              <SocialIcon>
-                <GrLinkedinOption />
-              </SocialIcon>
-            </SocialLinks>
-          </BrandSection>
-
-          <AboutSection>
-            <FooterHeading>
-              <span>About Us</span>
-            </FooterHeading>
-            <p>
-              Bếp Thái Restaurant is located in Vung Tau, offering a luxurious, cozy space with a rich 
-              menu from top chefs. We are committed to providing the freshest ingredients and the most 
-              professional service.
-            </p>
-          </AboutSection>
-
-          <ContactSection>
-            <FooterHeading>
-              <span>Contact Us</span>
-            </FooterHeading>
-            <ContactItem>
-              <IconWrapper>
-                <FaPhoneAlt />
-              </IconWrapper>
-              <p>(+84) 123 456 789</p>
-            </ContactItem>
-            <ContactItem>
-              <IconWrapper>
-                <FaEnvelope />
-              </IconWrapper>
-              <p>epsilon.restaurant@gmail.com</p>
-            </ContactItem>
-            <ContactItem>
-              <IconWrapper>
-                <AiFillInstagram />
-              </IconWrapper>
-              <p>@EpsilonLabs</p>
-            </ContactItem>
-            <ContactItem>
-              <IconWrapper>
-                <FaMapMarkerAlt />
-              </IconWrapper>
-              <p>5 Street 87A, Thạnh Mỹ Lợi Ward, District 2, Ho Chi Minh City, Vietnam</p>
-            </ContactItem>
-          </ContactSection>
-        </FooterContent>
-      </TopSection>
+      <LinksSection>
+        <FooterLinks>
+          <FooterLink>Our Restaurants</FooterLink>
+          <FooterLink>Privacy Policy</FooterLink>
+          <FooterLink>Cookie Policy</FooterLink>
+          <FooterLink>Jobs at Epsilon</FooterLink>
+          <FooterLink>Gift Vouchers</FooterLink>
+          <FooterLink>Epsilon Rewards Terms & Conditions</FooterLink>
+          <FooterLink>Contact Us</FooterLink>
+          <FooterLink>Website by Epsilon Digital</FooterLink>
+        </FooterLinks>
+        <SocialIconsSmall>
+          <SocialIconSmall>
+            <FaFacebookF />
+          </SocialIconSmall>
+          <SocialIconSmall>
+            <BsTwitter />
+          </SocialIconSmall>
+          <SocialIconSmall>
+            <AiFillInstagram />
+          </SocialIconSmall>
+        </SocialIconsSmall>
+      </LinksSection>
 
       <BottomSection>
         <p>
@@ -91,181 +48,88 @@ export default function Footer() {
 
 const FooterContainer = styled.footer`
   width: 100%;
-  background: linear-gradient(135deg, #fc4958, #e68900);
-  color: white;
   font-family: 'Poppins', sans-serif;
   position: relative;
   overflow: hidden;
 `;
 
-const TopSection = styled.div`
-  position: relative;
-  /* Đã xóa mọi CSS liên quan đến wave-container */
-`;
-
-const FooterContent = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  padding: 5rem 5% 3rem;
-  position: relative;
-  z-index: 1;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    padding: 5rem 8% 2rem;
-    text-align: center;
-  }
-`;
-
-const BrandSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+// Phần mới thêm vào theo thiết kế từ ảnh
+const InstagramSection = styled.div`
+  background-color: #f9c74f;
+  color: white;
+  text-align: center;
+  padding: 1rem 0;
   
   p {
-    margin: 1rem 0;
-    line-height: 1.6;
-    font-size: 0.95rem;
-    opacity: 0.9;
-  }
-
-  @media (max-width: 768px) {
-    align-items: center;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0;
   }
 `;
 
-// Đã chỉnh sửa LogoContainer - bỏ các hiệu ứng trang trí
-const LogoContainer = styled.div`
-  /* Đã xóa background, border-radius, padding, box-shadow */
-  margin-bottom: 1rem;
+const LinksSection = styled.div`
+  background-color: #f9c74f;
+  color: white;
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+`;
+
+const FooterLinks = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+`;
+
+const FooterLink = styled.a`
+  color: white;
+  font-size: 0.9rem;
+  text-decoration: none;
+  cursor: pointer;
   
-  img {
-    height: 60px;
-    width: auto;
+  &:hover {
+    text-decoration: underline;
   }
 `;
 
-const SocialLinks = styled.div`
+const SocialIconsSmall = styled.div`
   display: flex;
   gap: 1rem;
-  margin-top: 1rem;
 `;
 
-const SocialIcon = styled.div`
-  width: 40px;
-  height: 40px;
+const SocialIconSmall = styled.div`
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: transparent;
+  border: 2px solid white;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
-  
-  svg {
-    font-size: 1.2rem;
-    color: white;
-    transition: all 0.3s ease;
-  }
-  
-  &:hover {
-    background-color: #f9c74f;
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    
-    svg {
-      color: #fc4958;
-    }
-  }
-`;
-
-const AboutSection = styled.div`
-  p {
-    margin-top: 1rem;
-    line-height: 1.6;
-    font-size: 0.95rem;
-    opacity: 0.9;
-  }
-`;
-
-const ContactSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
-
-const FooterHeading = styled.h3`
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  position: relative;
-  display: inline-block;
-  color: #f9c74f;
-  
-  &::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -8px;
-    width: 40px;
-    height: 3px;
-    background-color: #f9c74f;
-    border-radius: 10px;
-  }
-  
-  span {
-    background: #f9c74f;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    font-weight: 700;
-  }
-  
-  @media (max-width: 768px) {
-    &::after {
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  }
-`;
-
-const ContactItem = styled.div`
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  
-  p {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    margin: 0;
-    opacity: 0.9;
-  }
-  
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-  }
-`;
-
-const IconWrapper = styled.div`
-  min-width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   
   svg {
     font-size: 1rem;
-    color: #f9c74f;
+    color: white;
+  }
+  
+  &:hover {
+    background-color: white;
+    
+    svg {
+      color: #f05a28;
+    }
   }
 `;
 
 const BottomSection = styled.div`
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: #e68900;
   padding: 1.2rem 0;
   text-align: center;
   
@@ -273,9 +137,10 @@ const BottomSection = styled.div`
     font-size: 0.9rem;
     margin: 0;
     opacity: 0.9;
+    color: #fff;
     
     span {
-      color: #f9c74f;
+      color: #fff;
       font-weight: 600;
       letter-spacing: 1px;
     }

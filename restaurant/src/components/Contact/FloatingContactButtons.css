@@ -23,46 +23,69 @@
   align-items: center;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
+  overflow: hidden;
 }
 
+/* Hiệu ứng khi hover - chỉ áp dụng cho icon được hover */
 .contact-icon:hover {
-  transform: scale(1.1);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transform: scale(1.3); /* Tăng kích thước phóng to */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+  z-index: 10; /* Đảm bảo icon được hover hiển thị trên các icon khác */
 }
 
 /* Hiệu ứng gợn sáng khi hover */
 .contact-icon::after {
   content: "";
   position: absolute;
-  width: 50px;
-  height: 50px;
-  background: rgba(255, 255, 255, 0.2);
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 70%);
   border-radius: 50%;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transform: scale(0);
+  transition: transform 0.5s ease, opacity 0.3s ease;
 }
 
 .contact-icon:hover::after {
   opacity: 1;
+  transform: scale(2);
 }
+
+/* Loại bỏ hiệu ứng nhấp nháy chung cho tất cả các icon */
+/* @keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+.contact-icon:hover {
+  animation: pulse 1.5s infinite;
+} */
 
 /* Tooltip hiển thị khi hover */
 .contact-icon::before {
   content: attr(title);
   position: absolute;
   right: 50px;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.8);
   color: white;
-  padding: 5px 10px;
+  padding: 6px 12px;
   border-radius: 4px;
   font-size: 12px;
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
-  transform: translateX(-10px);
+  transform: translateX(-20px);
   transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .contact-icon:hover::before {
@@ -72,19 +95,25 @@
 
 /* Các màu sắc của từng icon */
 .phone-icon {
-  background-color: #4CAF50;
+  background: linear-gradient(145deg, #55d45a, #43a047);
 }
 
 .zalo-icon {
-  background-color: #0068FF;
+  background: linear-gradient(145deg, #1a75ff, #0057d5);
 }
 
 .messenger-icon {
-  background-color: #0084FF;
+  background: linear-gradient(145deg, #1a90ff, #0068d5);
 }
 
 .livechat-icon {
-  background-color: #FF5722;
+  background: linear-gradient(145deg, #ff6e3c, #d84315);
+}
+
+/* Hiệu ứng khi click */
+.contact-icon:active {
+  transform: scale(0.9);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* Hiệu ứng xuất hiện */
@@ -106,7 +135,7 @@
 }
 
 .floating-contact-icons.visible .contact-icon {
-  animation: bounceIn 0.5s ease forwards;
+  animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
 .floating-contact-icons.visible .contact-icon:nth-child(1) {
@@ -129,16 +158,20 @@
 @media (max-width: 768px) {
   .floating-contact-icons {
     right: 10px;
-    bottom: 110px;
+    bottom: 80px;
     gap: 8px;
   }
   
   .contact-icon {
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
   }
   
   .contact-icon::before {
     display: none; /* Ẩn tooltip trên thiết bị di động */
+  }
+  
+  .contact-icon:hover {
+    transform: scale(1.2); /* Giảm mức độ phóng to trên thiết bị di động */
   }
 }
