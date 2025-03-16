@@ -1,12 +1,20 @@
 /* Thiết lập chung cho toàn bộ container */
 .contact-container {
-  max-width: 1100px;
+  max-width: 90%; /* Thay đổi từ 1100px thành 90% */
+  width: 100%;
   margin: 50px auto;
   padding: 30px;
   background: #fff;
   border-radius: 12px;
   box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.08);
   font-family: 'Poppins', sans-serif;
+}
+
+/* Thiết lập kích thước tối đa cho container trên màn hình cực lớn */
+@media (min-width: 1600px) {
+  .contact-container {
+    max-width: 1580px; /* Giới hạn kích thước tối đa trên màn hình cực lớn */
+  }
 }
 
 /* Phần tiêu đề */
@@ -17,7 +25,7 @@
 
 .contact-title {
   color: #222;
-  font-size: 32px;
+  font-size: 55px;
   margin-bottom: 10px;
   font-weight: 700;
 }
@@ -25,7 +33,7 @@
 .contact-subtitle {
   color: #666;
   font-size: 16px;
-  max-width: 600px;
+  max-width: 70%; /* Đổi từ 600px thành phần trăm */  
   margin: 0 auto;
 }
 
@@ -39,7 +47,7 @@
 }
 
 .contact-intro-text {
-  flex: 1;
+  flex: 1.5; /* Tăng tỷ lệ phần văn bản so với ảnh */
   color: #555;
   line-height: 1.6;
 }
@@ -50,7 +58,7 @@
 
 .contact-intro-image {
   flex: 1;
-  max-width: 450px;
+  max-width: 40%; /* Giảm kích thước tối đa xuống 40% */
 }
 
 .restaurant-image {
@@ -58,7 +66,8 @@
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   object-fit: cover;
-  height: 250px;
+  height: 200px; /* Chiều cao cơ bản */
+  max-height: none; /* Bỏ giới hạn chiều cao tối đa */
 }
 
 /* Phần content chính */
@@ -99,7 +108,7 @@
 
 .form-group label {
   font-weight: 600;
-  margin-bottom: a8px;
+  margin-bottom: 8px;
   color: #444;
   font-size: 15px;
 }
@@ -239,17 +248,57 @@ textarea::placeholder {
   min-height: 250px;
 }
 
-/* Responsive */
+/* Responsive cho các màn hình lớn */
+@media (min-width: 1200px) {
+  .contact-main-content {
+    gap: 40px; /* Tăng khoảng cách giữa các phần tử trên màn hình lớn */
+  }
+  
+  .contact-intro {
+    gap: 50px; /* Tăng khoảng cách giữa phần văn bản và hình ảnh */
+  }
+  
+  .form-container, .contact-info-box, .map-container {
+    padding: 35px; /* Tăng padding cho các container */
+  }
+  
+  .restaurant-image {
+    height: 240px; /* Tăng chiều cao trên màn hình lớn */
+  }
+}
+
+/* Điều chỉnh riêng cho màn hình rất lớn */
+@media (min-width: 1600px) {
+  .restaurant-image {
+    height: 280px; /* Tăng chiều cao đáng kể trên màn hình rất lớn */
+  }
+  
+  .contact-intro-image {
+    max-width: 35%; /* Giảm tỷ lệ chiều rộng tối đa để tạo cân đối */
+  }
+  
+  .contact-intro-text {
+    flex: 2; /* Tăng tỷ lệ cho phần văn bản */
+  }
+}
+
+/* Responsive cho các màn hình vừa */
 @media (max-width: 992px) {
   .contact-intro {
     flex-direction: column;
   }
   
   .contact-intro-image {
-    max-width: 100%;
+    max-width: 70%; /* Giới hạn kích thước ảnh trên tablet */
+    margin: 0 auto; /* Căn giữa ảnh */
+  }
+  
+  .restaurant-image {
+    height: 180px; /* Giảm chiều cao trên tablet */
   }
 }
 
+/* Responsive cho các màn hình nhỏ */
 @media (max-width: 768px) {
   .contact-main-content {
     grid-template-columns: 1fr;
@@ -258,8 +307,17 @@ textarea::placeholder {
   .form-container, .contact-info-box, .map-container {
     width: 100%;
   }
+  
+  .contact-intro-image {
+    max-width: 60%; /* Giảm kích thước ảnh trên điện thoại */
+  }
+  
+  .restaurant-image {
+    height: 160px; /* Giảm chiều cao trên điện thoại */
+  }
 }
 
+/* Responsive cho các màn hình cực nhỏ */
 @media (max-width: 576px) {
   .form-row {
     grid-template-columns: 1fr;
@@ -268,5 +326,14 @@ textarea::placeholder {
   .contact-container {
     padding: 20px;
     margin: 30px 15px;
+    max-width: 95%; /* Tăng chiều rộng trên màn hình nhỏ */
+  }
+  
+  .contact-intro-image {
+    max-width: 100%; /* Chiếm toàn bộ chiều rộng trên điện thoại nhỏ */
+  }
+  
+  .restaurant-image {
+    height: 150px; /* Giảm chiều cao hơn nữa trên điện thoại nhỏ */
   }
 }

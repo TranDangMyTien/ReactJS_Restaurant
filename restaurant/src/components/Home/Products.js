@@ -5,7 +5,8 @@ import {
   NavButton, 
   ActionButton, 
   DotsContainer, 
-  Dot 
+  Dot,
+  OuterContainer 
 } from "./ProductsStyles"; 
 import productsData from "./ProductsData";
 import OrderModal from "./OrderModal";
@@ -26,6 +27,7 @@ export default function Products() {
     if (width < 480) return 1;
     if (width < 768) return 2;
     if (width < 1024) return 3;
+    if (width >= 1800) return 5; // Thêm case cho màn hình rất lớn
     return 4; // Mặc định 4 sản phẩm trên màn hình lớn
   };
 
@@ -120,53 +122,56 @@ export default function Products() {
         </h1> 
         <p>Discover great deals on our products!</p>
       </div>
-      <div className="products-navigation">
-        <NavButton 
-          className="prev" 
-          onClick={handlePrevClick}
-          aria-label="Sản phẩm trước"
-          disabled={isTransitioning}
-        />
-        <div className="products-container">
-          <ProductsWrapper 
-            style={carouselPosition} 
-            $transitionTime="1.5s"
-          > 
-            {data.map((product) => ( 
-              <div key={product.id} className="product-card"> 
-                <div className="product-image"> 
-                  <img 
-                    src={product.image} 
-                    alt={product.name} 
-                    loading="lazy"
-                    onError={(e) => e.target.style.display = 'none'}
-                  /> 
-                  <div className="product-overlay"> 
-                    <div className="product-details"> 
-                      <h2>{product.name}</h2> 
-                      <h3>{product.price}</h3> 
-                      <p>{product.description}</p> 
-                      <ActionButton 
-                        onClick={() => handleBuyNow(product)}
-                        aria-label={`Mua ${product.name}`}
-                        color="#fc4958"
-                      >
-                        Buy Now
-                      </ActionButton> 
+      <OuterContainer>
+        <div className="products-navigation">
+          <NavButton 
+            className="prev" 
+            onClick={handlePrevClick}
+            aria-label="Sản phẩm trước"
+            disabled={isTransitioning}
+          />
+          <div className="products-container">
+            <ProductsWrapper 
+              style={carouselPosition} 
+              $transitionTime="1.5s"
+              $visibleProducts={visibleProducts}
+            > 
+              {data.map((product) => ( 
+                <div key={product.id} className="product-card"> 
+                  <div className="product-image"> 
+                    <img 
+                      src={product.image} 
+                      alt={product.name} 
+                      loading="lazy"
+                      onError={(e) => e.target.style.display = 'none'}
+                    /> 
+                    <div className="product-overlay"> 
+                      <div className="product-details"> 
+                        <h2>{product.name}</h2> 
+                        <h3>{product.price}</h3> 
+                        <p>{product.description}</p> 
+                        <ActionButton 
+                          onClick={() => handleBuyNow(product)}
+                          aria-label={`Mua ${product.name}`}
+                          color="#fc4958"
+                        >
+                          Buy Now
+                        </ActionButton> 
+                      </div> 
                     </div> 
                   </div> 
                 </div> 
-              </div> 
-            ))}
-          </ProductsWrapper>
-        </div>
-        <NavButton 
-          className="next" 
-          onClick={handleNextClick}
-          aria-label="Sản phẩm tiếp theo"
-          disabled={isTransitioning}
-        />
-      </div> 
+              ))}
+            </ProductsWrapper>
+          </div>
+          <NavButton 
+            className="next" 
+            onClick={handleNextClick}
+            aria-label="Sản phẩm tiếp theo"
+            disabled={isTransitioning}
+          />
+        </div> 
+      </OuterContainer>
       
       <DotsContainer>
         {[...Array(Math.ceil(data.length / visibleProducts))].map((_, index) => (

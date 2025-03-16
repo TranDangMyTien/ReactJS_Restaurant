@@ -5,21 +5,17 @@ export const Section = styled.section`
   ${TitleStyles}; 
   position: relative;
   padding-bottom: 3rem;
-  
-  .products-navigation {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    width: 100%;
-    padding: 1rem 0;
-  }
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+`;
 
-  .products-container {
-    width: 90%;
-    max-width: 1400px;
-    overflow: hidden;
-  }
+export const OuterContainer = styled.div`
+  width: 100%;
+  max-width: 100vw;
+  padding: 0;
+  margin: 0 auto;
+  position: relative;
 `;
 
 export const ProductsWrapper = styled.div`
@@ -45,7 +41,7 @@ export const ProductsWrapper = styled.div`
 
   .product-card { 
     flex: 0 0 auto;
-    width: calc((100% - (1.5rem * 3)) / 4);
+    width: ${props => `calc((100% - (1.5rem * ${(props.$visibleProducts || 4) - 1})) / ${props.$visibleProducts || 4})`};
     position: relative; 
     overflow: hidden; 
     border-radius: 1rem; 
@@ -151,7 +147,7 @@ export const ProductsWrapper = styled.div`
 `;
 
 export const NavButton = styled.button`
-  position: relative;
+  position: absolute;
   background-color: rgba(0, 0, 0, 0.5);
   border: none;
   cursor: pointer;
@@ -164,26 +160,27 @@ export const NavButton = styled.button`
   z-index: 10;
   transition: all 0.3s ease;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-  margin: 0 15px;
+  top: 50%;
+  transform: translateY(-50%);
   opacity: ${props => props.disabled ? 0.5 : 1};
   pointer-events: ${props => props.disabled ? 'none' : 'auto'};
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.8);
-    transform: ${props => props.disabled ? 'none' : 'scale(1.1)'};
+    transform: translateY(-50%) ${props => props.disabled ? '' : 'scale(1.1)'};
   }
 
   &:active {
-    transform: ${props => props.disabled ? 'none' : 'scale(0.95)'};
+    transform: translateY(-50%) ${props => props.disabled ? '' : 'scale(0.95)'};
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   }
 
   &.prev {
-    left: 0;
+    left: 25px;
   }
 
   &.next {
-    right: 0;
+    right: 30px;
   }
 
   &::before {
@@ -206,22 +203,36 @@ export const NavButton = styled.button`
   @media screen and (max-width: 768px) {
     width: 35px;
     height: 35px;
-    margin: 0 10px;
     
     &::before {
       width: 10px;
       height: 10px;
+    }
+    
+    &.prev {
+      left: 10px;
+    }
+
+    &.next {
+      right: 10px;
     }
   }
 
   @media screen and (max-width: 480px) {
     width: 30px;
     height: 30px;
-    margin: 0 5px;
     
     &::before {
       width: 8px;
       height: 8px;
+    }
+    
+    &.prev {
+      left: 5px;
+    }
+
+    &.next {
+      right: 5px;
     }
   }
 `;
