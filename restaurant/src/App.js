@@ -8,6 +8,7 @@ import MenuPage from "./components/Menu/MenuPage";
 import Contact from "./components/Contact/Contact";
 import { useState, useEffect } from "react";
 import FloatingContactButtons from "./components/Contact/FloatingContactButtons";
+import { CartProvider } from "./components/Home/CartContext";
 
 function App() {
   const [showContactIcons, setShowContactIcons] = useState(false);
@@ -29,6 +30,7 @@ function App() {
     };
   }, []);
   return (
+    <CartProvider>
     <BrowserRouter>
       <div className="App">
         <ScrollToTop />
@@ -42,6 +44,8 @@ function App() {
         <FloatingContactButtons visible={showContactIcons} />
       </div>
     </BrowserRouter>
+    </CartProvider>
+
   );
 }
 

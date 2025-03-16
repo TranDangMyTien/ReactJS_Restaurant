@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState } from 'react';
 import styled from 'styled-components';
+import { useCart } from './CartContext';
 
 // Styled components for OrderModal
 const ModalOverlay = styled.div`
@@ -182,9 +183,33 @@ const AddToCartButton = styled.button`
   }
 `;
 
+// Component Toast thông báo
+const Toast = styled.div`
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 2000;
+  transition: opacity 0.3s, transform 0.3s;
+  opacity: ${props => props.show ? 1 : 0};
+  transform: ${props => props.show ? 'translateY(0)' : 'translateY(20px)'};
+  pointer-events: ${props => props.show ? 'auto' : 'none'};
+`;
+
+
+
 const OrderModal = ({ isOpen, product, onClose }) => {
   const [quantity, setQuantity] = React.useState(1);
   const [note, setNote] = React.useState("");
+  const [showToast, setShowToast] = useState(false);
+
+  // Sử dụng hook useCart để truy cập context
+  const { addToCart } = useCart();
+   
   
   if (!isOpen) return null;
   
@@ -203,8 +228,18 @@ const OrderModal = ({ isOpen, product, onClose }) => {
   };
   
   const handleAddToCart = () => {
-    alert(`Added ${quantity} ${product.name} to the cart with note: ${note}`);
-    onClose();
+    // Đảm bảo product có id nếu không có
+    const productWithId = product.id ? product : { ...product, id: Date.now().toString() };
+    
+    // Gọi hàm addToCart từ context
+    addToCart(productWithId, quantity, note);
+    
+    // Hiển thị thông báo
+    setShowToast(true);
+    setTimeout(() => {
+      setShowToast(false);
+      onClose();
+    }, 2000);
   };
   
   const extractPrice = (priceString) => {
@@ -236,6 +271,7 @@ const OrderModal = ({ isOpen, product, onClose }) => {
   };
   
   return (
+    <>
     <ModalOverlay onClick={onClose}>
       <ModalContent onClick={e => e.stopPropagation()}>
         <ModalHeader>
@@ -272,6 +308,11 @@ const OrderModal = ({ isOpen, product, onClose }) => {
         <AddToCartButton onClick={handleAddToCart}>ADD TO CART</AddToCartButton>
       </ModalContent>
     </ModalOverlay>
+    <Toast show={showToast}>
+      Added {quantity} {product.name} to the cart!
+    </Toast>
+
+    </>
   );
 };
 
