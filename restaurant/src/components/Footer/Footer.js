@@ -10,19 +10,16 @@ export default function Footer() {
   return (
     <FooterContainer>
       <InstagramSection>
-        <p>Follow us on Instagram</p>
+        <p>Restaurant Bếp Thái</p>
       </InstagramSection>
 
       <LinksSection>
         <FooterLinks>
           <FooterLink>Our Restaurants</FooterLink>
-          <FooterLink>Privacy Policy</FooterLink>
-          <FooterLink>Cookie Policy</FooterLink>
-          <FooterLink>Jobs at Epsilon</FooterLink>
-          <FooterLink>Gift Vouchers</FooterLink>
-          <FooterLink>Epsilon Rewards Terms & Conditions</FooterLink>
-          <FooterLink>Contact Us</FooterLink>
-          <FooterLink>Website by Epsilon Digital</FooterLink>
+          <FooterLink>Promotion</FooterLink>
+          <FooterLink>Menu</FooterLink>
+          <FooterLink>Reservation</FooterLink>
+          <FooterLink>Contact</FooterLink>
         </FooterLinks>
         <SocialIconsSmall>
           <SocialIconSmall>
@@ -55,7 +52,7 @@ const FooterContainer = styled.footer`
 
 // Phần mới thêm vào theo thiết kế từ ảnh
 const InstagramSection = styled.div`
-  background-color: #f9c74f;
+  background-color: #791823;
   color: white;
   text-align: center;
   padding: 1rem 0;
@@ -68,7 +65,7 @@ const InstagramSection = styled.div`
 `;
 
 const LinksSection = styled.div`
-  background-color: #f9c74f;
+  background-color: #791823;
   color: white;
   padding: 2rem 0;
   display: flex;
@@ -129,8 +126,8 @@ const SocialIconSmall = styled.div`
 `;
 
 const BottomSection = styled.div`
-  background-color: #e68900;
-  padding: 1.2rem 0;
+  background-color:  #791823;
+  padding: 0.6rem 0;
   text-align: center;
   
   p {

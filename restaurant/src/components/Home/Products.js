@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react"; 
+import React, { useState, useEffect, useRef } from "react"; 
 import { 
   Section, 
   ProductsWrapper, 
   NavButton, 
   ActionButton, 
-  DotsContainer, 
-  Dot,
   OuterContainer 
 } from "./ProductsStyles"; 
 import productsData from "./ProductsData";
@@ -20,6 +18,15 @@ export default function Products() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isPaused, setIsPaused] = useState(false);
+  
+  const autoplayRef = useRef(null);
+  const carouselRef = useRef(null);
+
+  // Thời gian chuyển tiếp được giảm xuống còn 0.5s để di chuyển nhanh hơn
+  const transitionTime = "0.5s";
+  // Thời gian đợi giữa các lần tự động chuyển cũng giảm xuống còn 2s
+  const autoplayInterval = 2000;
 
   // Hàm xác định số lượng sản phẩm hiển thị dựa trên kích thước màn hình
   const determineVisibleProducts = () => {
@@ -29,6 +36,13 @@ export default function Products() {
     if (width < 1024) return 3;
     if (width >= 1800) return 5; // Thêm case cho màn hình rất lớn
     return 4; // Mặc định 4 sản phẩm trên màn hình lớn
+  };
+
+  // Hàm di chuyển tự động
+  const autoplay = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex + visibleProducts >= data.length ? 0 : prevIndex + 1
+    );
   };
 
   useEffect(() => {
@@ -47,50 +61,51 @@ export default function Products() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Hàm di chuyển sang trái với hiệu ứng chậm
+  // Thiết lập autoplay
+  useEffect(() => {
+    if (!isPaused) {
+      autoplayRef.current = setInterval(autoplay, autoplayInterval); // Di chuyển mỗi 2 giây
+    }
+    
+    return () => {
+      if (autoplayRef.current) {
+        clearInterval(autoplayRef.current);
+      }
+    };
+  }, [isPaused, visibleProducts, data.length, autoplayInterval]);
+
+  // Hàm di chuyển sang trái với tốc độ nhanh hơn
   const handlePrevClick = () => {
     if (isTransitioning) return; // Ngăn chặn nhấn nút khi đang chuyển tiếp
     
     setIsTransitioning(true);
     
+    // Giảm thời gian trễ xuống 50ms
     setTimeout(() => {
       setCurrentIndex((prevIndex) => 
         prevIndex === 0 ? Math.max(0, data.length - visibleProducts) : prevIndex - 1
       );
       
-      // Đặt lại trạng thái chuyển tiếp sau 1.5 giây
-      setTimeout(() => setIsTransitioning(false), 1500);
-    }, 200);
+      // Đặt lại trạng thái chuyển tiếp sau 0.5 giây (nhanh hơn)
+      setTimeout(() => setIsTransitioning(false), 500);
+    }, 50);
   };
 
-  // Hàm di chuyển sang phải với hiệu ứng chậm
+  // Hàm di chuyển sang phải với tốc độ nhanh hơn
   const handleNextClick = () => {
     if (isTransitioning) return; // Ngăn chặn nhấn nút khi đang chuyển tiếp
     
     setIsTransitioning(true);
     
+    // Giảm thời gian trễ xuống 50ms
     setTimeout(() => {
       setCurrentIndex((prevIndex) => 
         prevIndex + visibleProducts >= data.length ? 0 : prevIndex + 1
       );
       
-      // Đặt lại trạng thái chuyển tiếp sau 1.5 giây
-      setTimeout(() => setIsTransitioning(false), 1500);
-    }, 200);
-  };
-
-  // Hàm chuyển sang dot cụ thể
-  const goToDot = (index) => {
-    if (isTransitioning) return; // Ngăn chặn nhấn dot khi đang chuyển tiếp
-    
-    setIsTransitioning(true);
-    
-    setTimeout(() => {
-      setCurrentIndex(index * visibleProducts);
-      
-      // Đặt lại trạng thái chuyển tiếp sau 1.5 giây
-      setTimeout(() => setIsTransitioning(false), 1500);
-    }, 200);
+      // Đặt lại trạng thái chuyển tiếp sau 0.5 giây (nhanh hơn)
+      setTimeout(() => setIsTransitioning(false), 500);
+    }, 50);
   };
 
   // Hàm xử lý mua sản phẩm - Mở modal
@@ -107,6 +122,16 @@ export default function Products() {
     setSelectedProduct(null);
     // Cho phép cuộn trang lại khi đã đóng modal
     document.body.style.overflow = 'auto';
+  };
+
+  // Hàm xử lý khi hover vào carousel
+  const handleMouseEnter = () => {
+    setIsPaused(true);
+  };
+
+  // Hàm xử lý khi rời chuột khỏi carousel
+  const handleMouseLeave = () => {
+    setIsPaused(false);
   };
 
   // Tính toán vị trí của carousel
@@ -130,14 +155,22 @@ export default function Products() {
             aria-label="Sản phẩm trước"
             disabled={isTransitioning}
           />
-          <div className="products-container">
+          <div 
+            className="products-container" 
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            ref={carouselRef}
+          >
             <ProductsWrapper 
               style={carouselPosition} 
-              $transitionTime="1.5s"
+              $transitionTime={transitionTime}
               $visibleProducts={visibleProducts}
             > 
               {data.map((product) => ( 
-                <div key={product.id} className="product-card"> 
+                <div 
+                  key={product.id} 
+                  className="product-card"
+                > 
                   <div className="product-image"> 
                     <img 
                       src={product.image} 
@@ -172,17 +205,6 @@ export default function Products() {
           />
         </div> 
       </OuterContainer>
-      
-      <DotsContainer>
-        {[...Array(Math.ceil(data.length / visibleProducts))].map((_, index) => (
-          <Dot
-            key={index}
-            active={index === Math.floor(currentIndex / visibleProducts)}
-            onClick={() => goToDot(index)}
-            disabled={isTransitioning}
-          />
-        ))}
-      </DotsContainer>
 
       {/* Modal đặt hàng */}
       <OrderModal 

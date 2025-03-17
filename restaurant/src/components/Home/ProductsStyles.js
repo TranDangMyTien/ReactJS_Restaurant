@@ -265,27 +265,3 @@ export const ActionButton = styled.button`
     font-size: 0.9rem;
   }
 `;
-
-export const DotsContainer = styled.div`
-  position: relative;
-  display: flex;
-  gap: 12px;
-  z-index: 10;
-  justify-content: center;
-  margin-top: 1.5rem;
-`;
-
-export const Dot = styled.div`
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background-color: ${(props) => (props.active ? "#fc4958" : "rgba(0, 0, 0, 0.3)")};
-  cursor: ${props => props.disabled ? 'default' : 'pointer'};
-  transition: all 0.3s ease;
-  opacity: ${props => props.disabled ? 0.7 : 1};
-
-  &:hover {
-    background-color: ${(props) => (props.active ? "#fc4958" : "rgba(0, 0, 0, 0.5)")};
-    transform: ${props => props.disabled ? 'none' : 'scale(1.1)'};
-  }
-`;

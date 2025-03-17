@@ -194,7 +194,7 @@ export default function Navbar() {
       <Nav scrolled={scrolled}>
         <div className="container">
           <div className="brand" onClick={() => navigate("/")}>
-            <img src={foodYummy} alt="Logo" style={{ cursor: "pointer" }} />
+            <img src={"https://res.cloudinary.com/dvxzmwuat/image/upload/v1740931265/snapedit_1740931151637_athixb.png"} alt="Logo" style={{ cursor: "pointer" }} />
           </div>
           <div className="nav-right">
             <NavLinks 
